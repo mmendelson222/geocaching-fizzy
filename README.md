@@ -7,3 +7,5 @@ Winforms/C# analyzer for geocaching data.   Generates a Difficulty/Terrain ratin
 1. Download the zip file from https://github.com/mmendelson222/geocaching-fizzy (green button which reads "Clone or download").
 1. Unzip the file into an empty directory.  Subdirectory called "latest-release" contains the executable.
 1. Double click on Fizzy.exe.  When you see the dialog, select your my finds gpx file. 
+
+NOTE: Unlike the calendar on geocaching.com, this calendar does NOT include lab caches (since they're not included in your "my finds" query).  The D/T grid should be identical.
