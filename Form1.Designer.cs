@@ -63,6 +63,7 @@
             this.grid.Size = new System.Drawing.Size(497, 468);
             this.grid.TabIndex = 0;
             this.grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_CellClick);
+            this.grid.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.grid_CellFormatting);
             this.grid.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.grid_RowPrePaint);
             this.grid.SizeChanged += new System.EventHandler(this.grid_SizeChanged);
             // 
