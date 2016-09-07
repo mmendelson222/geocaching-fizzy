@@ -15,6 +15,8 @@ namespace Fizzy
 {
     public partial class Form1 : Form
     {
+        List<Fizzy.GPXLoader.Cache> allgc = null;
+
         public Form1()
         {
             InitializeComponent();
@@ -22,23 +24,26 @@ namespace Fizzy
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //string gpx = @"C:\dev\aws\keys\10130560.gpx";
+            LoadGpxFile();
+            radDT.Checked = true;
+        }
 
-            if (Config.FilePath != null)
+        private bool LoadGpxFile()
+        {
+            try
             {
-                LoadGrid(Config.FilePath);
+                allgc = (new GPXLoader()).LoadGPXWaypoints(Config.FilePath);
+                return true;
             }
-            else
+            catch
             {
-                btnLoad_Click(null, null);
+                allgc = null;
+                return false;
             }
         }
 
-        private void LoadGrid(string gpx)
+        private void LoadDTGrid()
         {
-            var loader = new GPXLoader();
-            var allgc = loader.LoadGPXWaypoints(gpx);
-
             grid.ColumnCount = 9;
 
             for (int d = 0; d < 9; d++)
@@ -77,10 +82,8 @@ namespace Fizzy
             }
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dt_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
-
             var cell = grid[e.ColumnIndex, e.RowIndex];
             var caches = cell.Tag as List<Fizzy.GPXLoader.Cache>;
             if (caches == null) return;
@@ -101,11 +104,30 @@ namespace Fizzy
             text.SelectionFont = new Font(text.Font, FontStyle.Bold);
         }
 
+        private void LoadCalendarGrid()
+        {
+
+        }
+
+        private void cal_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
 
         public class GridCellContent
         {
             public int count;
             public List<Fizzy.GPXLoader.Cache> gcs;
+        }
+
+        private void grid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+
+            if (radDT.Checked)
+                dt_CellClick(sender, e);
+            else if (radCalendar.Checked)
+                cal_CellClick(sender, e);
         }
 
         private void text_LinkClicked(object sender, LinkClickedEventArgs e)
@@ -138,9 +160,24 @@ namespace Fizzy
             if (dlgGPX.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 Config.FilePath = dlgGPX.FileName;
-                LoadGrid(Config.FilePath);
+                LoadGpxFile();
+                radGridType_CheckedChanged(null, null);
             }
         }
+
+        private void radGridType_CheckedChanged(object sender, EventArgs e)
+        {
+            if (allgc != null)
+            {
+                grid.Rows.Clear();
+                if (radDT.Checked)
+                    LoadDTGrid();
+                else if (radCalendar.Checked)
+                    LoadCalendarGrid();
+            }
+        }
+
+     
 
     }
 
