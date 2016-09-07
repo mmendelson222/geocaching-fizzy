@@ -63,6 +63,7 @@ namespace Fizzy
                         col.Name = terr;
                         col.DataPropertyName = "count";
                         col.SortMode = DataGridViewColumnSortMode.NotSortable;
+                        col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     }
                     var thisDT = allgc.Where(g => g.Difficulty == diff && g.Terrain == terr);
 
@@ -93,7 +94,7 @@ namespace Fizzy
             {
                 if (sb.Length == 0)
                     sb.AppendFormat("Difficulty: {0}, Terrain {1}\n", c.Difficulty, c.Terrain);
-                sb.AppendFormat("{0:MM-dd-yy} {1} {2} http://coord.info/{3}\n", c.Date, c.Name, c.State, c.Code);
+                sb.AppendFormat("{0:MM-dd-yy} {1} {2} http://coord.info/{3} {4}\n", c.Date, c.Name, c.State, c.Code, (c.Archived ? "(archived)" : string.Empty));
             }
 
             text.Text = string.Empty; //clear formatting
@@ -144,6 +145,7 @@ namespace Fizzy
                         col.Name = day.ToString();
                         col.DataPropertyName = "count";
                         col.SortMode = DataGridViewColumnSortMode.NotSortable;
+                        col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     }
 
                     //var sDate = dt.ToString("MM-dd");
@@ -170,11 +172,12 @@ namespace Fizzy
             if (caches == null) return;
 
             StringBuilder sb = new StringBuilder();
+
             foreach (var c in caches.OrderByDescending(a => a.sDate))
             {
                 if (sb.Length == 0)
-                    sb.AppendFormat("Caches found on: {0:MM-dd}\n", c.Date);
-                sb.AppendFormat("{5:yyyy} {0} {1}/{2} {3} http://coord.info/{4}\n", c.Name, c.Difficulty, c.Terrain, c.State, c.Code, c.Date);
+                    sb.AppendFormat("Caches found on: {0:M-d}\n", c.Date);
+                sb.AppendFormat("{5:yyyy} {0} {1}/{2} {3} http://coord.info/{4} {6}\n", c.Name, c.Difficulty, c.Terrain, c.State, c.Code, c.Date, (c.Archived ? "(archived)" : string.Empty));
             }
 
             text.Text = string.Empty; //clear formatting

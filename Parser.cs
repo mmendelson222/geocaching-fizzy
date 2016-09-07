@@ -47,19 +47,20 @@ namespace Fizzy
             XNamespace gpx = XNamespace.Get("http://www.topografix.com/GPX/1/0");
 
             var waypoints = (from waypoint in gpxDoc.Descendants(gpx + "wpt")
-                            select new Cache
-                            {
-                                //Latitude = waypoint.Attribute("lat").Value,
-                                //Longitude = waypoint.Attribute("lon").Value,
-                                //Elevation = waypoint.Element(gpx + "ele") != null ? waypoint.Element(gpx + "ele").Value : null,
-                                Code = waypoint.Element(gpx + "name") != null ? waypoint.Element(gpx + "name").Value : null,
-                                Difficulty = waypoint.Element(gs + "cache").Element(gs + "difficulty").Value,
-                                Terrain = waypoint.Element(gs + "cache").Element(gs + "terrain").Value,
-                                Owner = waypoint.Element(gs + "cache").Element(gs + "owner").Value,
-                                State = waypoint.Element(gs + "cache").Element(gs + "state").Value,
-                                Name = waypoint.Element(gs + "cache").Element(gs + "name").Value,
-                                sDate = waypoint.Element(gs + "cache").Element(gs + "logs").Elements().Where(z => z.Element(gs + "type").Value == "Found it" || z.Element(gs + "type").Value == "Attended" || z.Element(gs + "type").Value == "Webcam Photo Taken").First().Element(gs + "date").Value,
-                            });
+                             select new Cache
+                             {
+                                 //Latitude = waypoint.Attribute("lat").Value,
+                                 //Longitude = waypoint.Attribute("lon").Value,
+                                 //Elevation = waypoint.Element(gpx + "ele") != null ? waypoint.Element(gpx + "ele").Value : null,
+                                 Code = waypoint.Element(gpx + "name") != null ? waypoint.Element(gpx + "name").Value : null,
+                                 Difficulty = waypoint.Element(gs + "cache").Element(gs + "difficulty").Value,
+                                 Terrain = waypoint.Element(gs + "cache").Element(gs + "terrain").Value,
+                                 Owner = waypoint.Element(gs + "cache").Element(gs + "owner").Value,
+                                 State = waypoint.Element(gs + "cache").Element(gs + "state").Value,
+                                 Name = waypoint.Element(gs + "cache").Element(gs + "name").Value,
+                                 Archived = waypoint.Element(gs + "cache").Attribute("archived").Value == "True",
+                                 sDate = waypoint.Element(gs + "cache").Element(gs + "logs").Elements().Where(z => z.Element(gs + "type").Value == "Found it" || z.Element(gs + "type").Value == "Attended" || z.Element(gs + "type").Value == "Webcam Photo Taken").First().Element(gs + "date").Value,
+                             });
 
             return waypoints.ToList();
         }
@@ -72,18 +73,19 @@ namespace Fizzy
             internal string Owner;
             internal string State;
             internal string Name;
-            internal string sDate;
-            internal DateTime Date
+            internal bool Archived;
+
+            private string sdt;
+            internal string sDate
             {
-                get
+                get { return sdt; }
+                set
                 {
-                    DateTime dt;
-                    if (DateTime.TryParse(sDate, out dt))
-                        return dt;
-                    else
-                        return new DateTime();
+                    sdt = value;
+                    DateTime.TryParse(sdt, out Date);
                 }
             }
+            internal DateTime Date;
         }
 
         /// <summary> 

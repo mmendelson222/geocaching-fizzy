@@ -60,7 +60,7 @@
             this.grid.ReadOnly = true;
             this.grid.RowHeadersWidth = 70;
             this.grid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.grid.Size = new System.Drawing.Size(497, 468);
+            this.grid.Size = new System.Drawing.Size(928, 468);
             this.grid.TabIndex = 0;
             this.grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_CellClick);
             this.grid.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.grid_CellFormatting);
@@ -80,8 +80,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.text);
-            this.splitContainer1.Size = new System.Drawing.Size(1243, 468);
-            this.splitContainer1.SplitterDistance = 497;
+            this.splitContainer1.Size = new System.Drawing.Size(1464, 468);
+            this.splitContainer1.SplitterDistance = 928;
             this.splitContainer1.TabIndex = 1;
             // 
             // text
@@ -89,7 +89,7 @@
             this.text.Dock = System.Windows.Forms.DockStyle.Fill;
             this.text.Location = new System.Drawing.Point(0, 0);
             this.text.Name = "text";
-            this.text.Size = new System.Drawing.Size(742, 468);
+            this.text.Size = new System.Drawing.Size(532, 468);
             this.text.TabIndex = 0;
             this.text.Text = "";
             this.text.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.text_LinkClicked);
@@ -98,7 +98,7 @@
             // 
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1243, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1464, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -154,7 +154,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1243, 492);
+            this.ClientSize = new System.Drawing.Size(1464, 492);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.splitContainer1);
