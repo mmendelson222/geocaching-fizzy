@@ -1,10 +1,11 @@
 # geocaching-fizzy
 ## What is it?
 
-This Windows program generates a Difficulty/Terrain rating grid that is clickable.  Clicking on a square gives you a list of all caches found with that DT rating, with coord.info links etc.  
-
-Click on the "Calendar" tab for a clickable calendar as well.  Click on day for a list of your finds on that date, through the years. 
-
+This Windows program grids based on your finds.  The difference is that each grid square is clickable, so you get all caches represented by that D/T rating, with coord.info links etc.
+ * Difficulty/Terrain grid.  Click on a square for a list of all caches found with that DT rating.  
+ * Finds by day Calendar.  Click on day for a list of your finds on that date, through the years.
+ * Jasmer grid, which gives you all finds organized by the month the geocache was placed. 
+ 
 ![screen shot](https://raw.githubusercontent.com/mmendelson222/geocaching-fizzy/master/images/fizzy.png)
 
 ## Installation instructions 
