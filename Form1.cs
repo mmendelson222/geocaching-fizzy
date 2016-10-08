@@ -276,21 +276,16 @@ namespace Fizzy
         /// </summary>
         private void grid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            //TODO: fix gray x. 
             var cell = grid[e.ColumnIndex, e.RowIndex];
-            Debug.WriteLine(cell.Value.GetType().Name);
-
-            if (cell.Tag == null)
-                e.CellStyle.BackColor = Color.LightGreen;
+            if (cell.Value is String)
+            {
+                if ((string)cell.Value == "X")
+                    e.CellStyle.BackColor = Color.LightGray;
+            }
             else if (cell.Value is int)
             {
                 if ((int)cell.Value > 0)
                     e.CellStyle.BackColor = Color.LightGreen;
-            }
-            else if (cell.Value is string)
-            {
-                if ((string)cell.Value == "X")
-                    e.CellStyle.BackColor = Color.Gray;
             }
         }
 
