@@ -37,6 +37,7 @@
             this.radDT = new System.Windows.Forms.RadioButton();
             this.radCalendar = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.radJasmer = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -60,7 +61,7 @@
             this.grid.ReadOnly = true;
             this.grid.RowHeadersWidth = 70;
             this.grid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.grid.Size = new System.Drawing.Size(928, 468);
+            this.grid.Size = new System.Drawing.Size(927, 468);
             this.grid.TabIndex = 0;
             this.grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_CellClick);
             this.grid.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.grid_CellFormatting);
@@ -81,7 +82,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.text);
             this.splitContainer1.Size = new System.Drawing.Size(1464, 468);
-            this.splitContainer1.SplitterDistance = 928;
+            this.splitContainer1.SplitterDistance = 927;
             this.splitContainer1.TabIndex = 1;
             // 
             // text
@@ -89,7 +90,7 @@
             this.text.Dock = System.Windows.Forms.DockStyle.Fill;
             this.text.Location = new System.Drawing.Point(0, 0);
             this.text.Name = "text";
-            this.text.Size = new System.Drawing.Size(532, 468);
+            this.text.Size = new System.Drawing.Size(533, 468);
             this.text.TabIndex = 0;
             this.text.Text = "";
             this.text.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.text_LinkClicked);
@@ -143,12 +144,25 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.radJasmer);
             this.panel1.Controls.Add(this.radCalendar);
             this.panel1.Controls.Add(this.radDT);
             this.panel1.Location = new System.Drawing.Point(84, -1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(143, 24);
+            this.panel1.Size = new System.Drawing.Size(210, 24);
             this.panel1.TabIndex = 6;
+            // 
+            // radJasmer
+            // 
+            this.radJasmer.AutoSize = true;
+            this.radJasmer.Location = new System.Drawing.Point(143, 4);
+            this.radJasmer.Name = "radJasmer";
+            this.radJasmer.Size = new System.Drawing.Size(58, 17);
+            this.radJasmer.TabIndex = 6;
+            this.radJasmer.TabStop = true;
+            this.radJasmer.Text = "Jasmer";
+            this.radJasmer.UseVisualStyleBackColor = true;
+            this.radJasmer.CheckedChanged += new System.EventHandler(this.radGridType_CheckedChanged);
             // 
             // Form1
             // 
@@ -186,6 +200,7 @@
         private System.Windows.Forms.RadioButton radDT;
         private System.Windows.Forms.RadioButton radCalendar;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.RadioButton radJasmer;
     }
 }
 

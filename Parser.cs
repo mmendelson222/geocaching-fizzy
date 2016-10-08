@@ -58,6 +58,7 @@ namespace Fizzy
                                  Owner = waypoint.Element(gs + "cache").Element(gs + "owner").Value,
                                  State = waypoint.Element(gs + "cache").Element(gs + "state").Value,
                                  Name = waypoint.Element(gs + "cache").Element(gs + "name").Value,
+                                 sHidden = waypoint.Element(gpx + "time").Value,
                                  Archived = waypoint.Element(gs + "cache").Attribute("archived").Value == "True",
                                  sDate = waypoint.Element(gs + "cache").Element(gs + "logs").Elements().Where(z => z.Element(gs + "type").Value == "Found it" || z.Element(gs + "type").Value == "Attended" || z.Element(gs + "type").Value == "Webcam Photo Taken").First().Element(gs + "date").Value,
                              });
@@ -86,6 +87,16 @@ namespace Fizzy
                 }
             }
             internal DateTime Date;
+
+            internal string sHidden
+            {
+                set
+                {
+                    DateTime.TryParse(value, out Hidden);
+                }
+            }
+            internal DateTime Hidden;
+            
         }
 
         /// <summary> 
@@ -95,6 +106,7 @@ namespace Fizzy
         /// <param name="sFile">Fully qualified file name (local)</param> 
         /// <returns>string containing line delimited waypoints from the 
         /// file (for test)</returns> 
+        /*
         public string LoadGPXTracks(string sFile)
         {
             XDocument gpxDoc = GetGpxDoc(sFile);
@@ -136,6 +148,7 @@ namespace Fizzy
             }
             return sb.ToString();
         }
+         */
     }
 }
 

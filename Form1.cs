@@ -64,6 +64,7 @@ namespace Fizzy
                         col.DataPropertyName = "count";
                         col.SortMode = DataGridViewColumnSortMode.NotSortable;
                         col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                        col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     }
                     var thisDT = allgc.Where(g => g.Difficulty == diff && g.Terrain == terr);
 
@@ -105,14 +106,14 @@ namespace Fizzy
             text.SelectionFont = new Font(text.Font, FontStyle.Bold);
         }
 
-        private void LoadCalendarGrid()
+        private void LoadFindsByDayGrid()
         {
             grid.ColumnCount = 31;
 
             for (int m = 0; m < 12; m++)
             {
                 var row = new DataGridViewRow();
-                
+
                 for (int d = 0; d < 31; d++)
                 {
                     var month = m + 1;
@@ -146,6 +147,7 @@ namespace Fizzy
                         col.DataPropertyName = "count";
                         col.SortMode = DataGridViewColumnSortMode.NotSortable;
                         col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                        col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     }
 
                     //var sDate = dt.ToString("MM-dd");
@@ -188,16 +190,108 @@ namespace Fizzy
             text.SelectionFont = new Font(text.Font, FontStyle.Bold);
         }
 
+        private void LoadFindsByCacheMonth()
+        {
+            grid.ColumnCount = 12;
+
+            //row: year, column: month
+            int thisYear = DateTime.Now.Year;
+            int thisMonth = DateTime.Now.Month;
+
+            for (int year = 2000; year <= thisYear; year++)
+            {
+                var row = new DataGridViewRow();
+
+                for (int m = 0; m < 12; m++)
+                {
+                    var month = m + 1;
+
+                    //initialization for columns
+                    if (year == 2000)
+                    {
+                        var col = grid.Columns[m];
+                        col.Name = new DateTime(2000, m + 1, 1).ToString("MMM");
+                        col.DataPropertyName = "count";
+                        col.SortMode = DataGridViewColumnSortMode.NotSortable;
+                        col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                        col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    }
+
+                    if (m == 0)
+                    {
+                        row.HeaderCell.Value = year.ToString();
+                    }
+
+                    if ((year == 2000 && m < 4) || (year == thisYear && month > thisMonth))
+                    {
+                        row.Cells.Add(new DataGridViewTextBoxCell()
+                        {
+                            Value = "X",
+                            Tag = null
+                        });
+                        continue;
+                    }
+
+                    var placedThisMonth = allgc.Where(g => g.Hidden.Month == month && g.Hidden.Year == year);
+
+                    row.Cells.Add(new DataGridViewTextBoxCell()
+                    {
+                        Value = placedThisMonth.Count(),
+                        Tag = placedThisMonth.ToList()
+                    });
+                }
+
+                grid.Rows.Add(row);
+
+                grid_SizeChanged(null, null);
+            }
+        }
+
+        private void jasmer_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var cell = grid[e.ColumnIndex, e.RowIndex];
+            var caches = cell.Tag as List<Fizzy.GPXLoader.Cache>;
+            if (caches == null) return;
+
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var c in caches.OrderByDescending(a => a.sDate))
+            {
+                if (sb.Length == 0)
+                    sb.AppendFormat("Caches hidden in the month of: {0:M-yyyy}\n", c.Hidden);
+                sb.AppendFormat("{0:MM-dd-yy} {1} {2} http://coord.info/{3} {4}\n", c.Date, c.Name, c.State, c.Code, (c.Archived ? "(archived)" : string.Empty));
+            }
+
+            text.Text = string.Empty; //clear formatting
+            text.Text = sb.ToString();
+            //embolden the first line
+
+            text.Select(0, text.Text.IndexOf('\n'));
+            text.SelectionFont = new Font(text.Font, FontStyle.Bold);
+        }
+
+
         /// <summary>
         /// color cell background based on running state
         /// </summary>
         private void grid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            //TODO: fix gray x. 
             var cell = grid[e.ColumnIndex, e.RowIndex];
+            Debug.WriteLine(cell.Value.GetType().Name);
+
             if (cell.Tag == null)
                 e.CellStyle.BackColor = Color.LightGreen;
-            else if (((int)cell.Value) > 0)
-                e.CellStyle.BackColor = Color.LightGreen;
+            else if (cell.Value is int)
+            {
+                if ((int)cell.Value > 0)
+                    e.CellStyle.BackColor = Color.LightGreen;
+            }
+            else if (cell.Value is string)
+            {
+                if ((string)cell.Value == "X")
+                    e.CellStyle.BackColor = Color.Gray;
+            }
         }
 
         private void grid_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -208,6 +302,8 @@ namespace Fizzy
                 dt_CellClick(sender, e);
             else if (radCalendar.Checked)
                 cal_CellClick(sender, e);
+            else if (radJasmer.Checked)
+                jasmer_CellClick(sender, e);
         }
 
         private void text_LinkClicked(object sender, LinkClickedEventArgs e)
@@ -253,7 +349,9 @@ namespace Fizzy
                 if (radDT.Checked)
                     LoadDTGrid();
                 else if (radCalendar.Checked)
-                    LoadCalendarGrid();
+                    LoadFindsByDayGrid();
+                else if (radJasmer.Checked)
+                    LoadFindsByCacheMonth();
             }
         }
     }
