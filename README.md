@@ -5,7 +5,7 @@ This Windows program generates a Difficulty/Terrain rating grid that is clickabl
 
 Click on the "Calendar" tab for a clickable calendar as well.  Click on day for a list of your finds on that date, through the years. 
 
-[[https://github.com/mmendelson222/geocaching-fizzy/blob/master/images/fizzy.png|alt=screen shot]]
+![screen shot](https://raw.githubusercontent.com/mmendelson222/geocaching-fizzy/master/images/fizzy.png)
 
 ## Installation instructions 
 
