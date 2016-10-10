@@ -38,6 +38,7 @@
             this.radCalendar = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.radJasmer = new System.Windows.Forms.RadioButton();
+            this.btnAvengedDnfs = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -164,11 +165,22 @@
             this.radJasmer.UseVisualStyleBackColor = true;
             this.radJasmer.CheckedChanged += new System.EventHandler(this.radGridType_CheckedChanged);
             // 
+            // btnAvengedDnfs
+            // 
+            this.btnAvengedDnfs.Location = new System.Drawing.Point(300, 1);
+            this.btnAvengedDnfs.Name = "btnAvengedDnfs";
+            this.btnAvengedDnfs.Size = new System.Drawing.Size(75, 23);
+            this.btnAvengedDnfs.TabIndex = 7;
+            this.btnAvengedDnfs.Text = "Avenged";
+            this.btnAvengedDnfs.UseVisualStyleBackColor = true;
+            this.btnAvengedDnfs.Click += new System.EventHandler(this.btnAvengedDnfs_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1464, 492);
+            this.Controls.Add(this.btnAvengedDnfs);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.splitContainer1);
@@ -201,6 +213,7 @@
         private System.Windows.Forms.RadioButton radCalendar;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RadioButton radJasmer;
+        private System.Windows.Forms.Button btnAvengedDnfs;
     }
 }
 

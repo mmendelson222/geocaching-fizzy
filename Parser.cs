@@ -60,10 +60,39 @@ namespace Fizzy
                                  Name = waypoint.Element(gs + "cache").Element(gs + "name").Value,
                                  sHidden = waypoint.Element(gpx + "time").Value,
                                  Archived = waypoint.Element(gs + "cache").Attribute("archived").Value == "True",
-                                 sDate = waypoint.Element(gs + "cache").Element(gs + "logs").Elements().Where(z => z.Element(gs + "type").Value == "Found it" || z.Element(gs + "type").Value == "Attended" || z.Element(gs + "type").Value == "Webcam Photo Taken").First().Element(gs + "date").Value,
+                                 sFoundDate = DateFromCacheElement(gs, waypoint, FoundFilter(gs)),
+                                 sDNFDate = DateFromCacheElement(gs, waypoint, NotFoundFilter(gs)),
                              });
 
             return waypoints.ToList();
+        }
+
+        /// <summary>
+        /// Get the date of the first log of this type, based on filter.  
+        /// Return the date of that log, or null if not found.
+        /// </summary>
+        private string DateFromCacheElement(XNamespace gs, XElement waypoint, Func<XElement, bool> filter)
+        {
+            //get the first log conforming to the filter, or null.
+            XElement log = waypoint.Element(gs + "cache").Element(gs + "logs").Elements().Where(filter).FirstOrDefault();
+            if (log == null) return null;
+            return log.Element(gs + "date").Value;
+        }
+
+        /// <summary>
+        /// Find the "found" log(s)
+        /// </summary>
+        private static Func<XElement, bool> FoundFilter(XNamespace gs)
+        {
+            return z => z.Element(gs + "type").Value == "Found it" || z.Element(gs + "type").Value == "Attended" || z.Element(gs + "type").Value == "Webcam Photo Taken";
+        }
+
+        /// <summary>
+        /// Take the "not found" log(s)
+        /// </summary>
+        private static Func<XElement, bool> NotFoundFilter(XNamespace gs)
+        {
+            return z => z.Element(gs + "type").Value == "Didn't find it";
         }
 
         public class Cache
@@ -76,17 +105,29 @@ namespace Fizzy
             internal string Name;
             internal bool Archived;
 
-            private string sdt;
-            internal string sDate
+            private string sfound;
+            internal string sFoundDate
             {
-                get { return sdt; }
+                get { return sfound; }
                 set
                 {
-                    sdt = value;
-                    DateTime.TryParse(sdt, out Date);
+                    sfound = value;
+                    DateTime.TryParse(sfound, out Found);
                 }
             }
-            internal DateTime Date;
+            internal DateTime Found;
+
+            private string sDnf;
+            internal string sDNFDate
+            {
+                get { return sDnf; }
+                set
+                {
+                    sDnf = value;
+                    DateTime.TryParse(sfound, out DNF);
+                }
+            }
+            internal DateTime DNF;
 
             internal string sHidden
             {
@@ -96,59 +137,9 @@ namespace Fizzy
                 }
             }
             internal DateTime Hidden;
-            
+
         }
 
-        /// <summary> 
-        /// When passed a file, open it and parse all tracks 
-        /// and track segments from it. 
-        /// </summary> 
-        /// <param name="sFile">Fully qualified file name (local)</param> 
-        /// <returns>string containing line delimited waypoints from the 
-        /// file (for test)</returns> 
-        /*
-        public string LoadGPXTracks(string sFile)
-        {
-            XDocument gpxDoc = GetGpxDoc(sFile);
-            XNamespace gpx = GetGpxNameSpace();
-            var tracks = from track in gpxDoc.Descendants(gpx + "trk")
-                         select new
-                         {
-                             Name = track.Element(gpx + "name") != null ?
-                              track.Element(gpx + "name").Value : null,
-                             Segs = (
-                                  from trackpoint in track.Descendants(gpx + "trkpt")
-                                  select new
-                                  {
-                                      Latitude = trackpoint.Attribute("lat").Value,
-                                      Longitude = trackpoint.Attribute("lon").Value,
-                                      Elevation = trackpoint.Element(gpx + "ele") != null ?
-                                        trackpoint.Element(gpx + "ele").Value : null,
-                                      Time = trackpoint.Element(gpx + "time") != null ?
-                                        trackpoint.Element(gpx + "time").Value : null
-                                  }
-                                )
-                         };
-
-            StringBuilder sb = new StringBuilder();
-            foreach (var trk in tracks)
-            {
-                // Populate track data objects. 
-                foreach (var trkSeg in trk.Segs)
-                {
-                    // Populate detailed track segments 
-                    // in the object model here. 
-                    sb.Append(
-                      string.Format("Track:{0} - Latitude:{1} Longitude:{2} " +
-                                   "Elevation:{3} Date:{4}\n",
-                      trk.Name, trkSeg.Latitude,
-                      trkSeg.Longitude, trkSeg.Elevation,
-                      trkSeg.Time));
-                }
-            }
-            return sb.ToString();
-        }
-         */
     }
 }
 
