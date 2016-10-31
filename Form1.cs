@@ -37,8 +37,11 @@ namespace Fizzy
                 allgc = (new GPXLoader()).LoadGPXWaypoints(Config.FilePath);
                 return true;
             }
-            catch
+            catch (Exception e)
             {
+                //was this the problem? 
+                if (File.Exists(Config.FilePath))
+                    MessageBox.Show("File is missing: " + Config.FilePath,  string.Empty,  MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 allgc = null;
                 return false;
             }
@@ -113,6 +116,7 @@ namespace Fizzy
         private void radGridType_CheckedChanged(object sender, EventArgs e)
         {
             if (allgc == null) return;
+            if (sender == null) return;
             if (!((RadioButton)sender).Checked) return;
 
             grid.Rows.Clear();
