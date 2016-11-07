@@ -39,6 +39,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.radJasmer = new System.Windows.Forms.RadioButton();
             this.btnAvengedDnfs = new System.Windows.Forms.Button();
+            this.radOwner = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -145,12 +146,13 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.radOwner);
             this.panel1.Controls.Add(this.radJasmer);
             this.panel1.Controls.Add(this.radCalendar);
             this.panel1.Controls.Add(this.radDT);
             this.panel1.Location = new System.Drawing.Point(84, -1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(210, 24);
+            this.panel1.Size = new System.Drawing.Size(287, 24);
             this.panel1.TabIndex = 6;
             // 
             // radJasmer
@@ -167,13 +169,25 @@
             // 
             // btnAvengedDnfs
             // 
-            this.btnAvengedDnfs.Location = new System.Drawing.Point(300, 1);
+            this.btnAvengedDnfs.Location = new System.Drawing.Point(377, 1);
             this.btnAvengedDnfs.Name = "btnAvengedDnfs";
             this.btnAvengedDnfs.Size = new System.Drawing.Size(75, 23);
             this.btnAvengedDnfs.TabIndex = 7;
             this.btnAvengedDnfs.Text = "Avenged";
             this.btnAvengedDnfs.UseVisualStyleBackColor = true;
             this.btnAvengedDnfs.Click += new System.EventHandler(this.btnAvengedDnfs_Click);
+            // 
+            // radOwner
+            // 
+            this.radOwner.AutoSize = true;
+            this.radOwner.Location = new System.Drawing.Point(207, 3);
+            this.radOwner.Name = "radOwner";
+            this.radOwner.Size = new System.Drawing.Size(56, 17);
+            this.radOwner.TabIndex = 7;
+            this.radOwner.TabStop = true;
+            this.radOwner.Text = "Owner";
+            this.radOwner.UseVisualStyleBackColor = true;
+            this.radOwner.CheckedChanged += new System.EventHandler(this.radGridType_CheckedChanged);
             // 
             // Form1
             // 
@@ -214,6 +228,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RadioButton radJasmer;
         private System.Windows.Forms.Button btnAvengedDnfs;
+        private System.Windows.Forms.RadioButton radOwner;
     }
 }
 

@@ -16,6 +16,7 @@ namespace Fizzy.GridFunctions
                 case "radDT": return new DTGridPurpose();
                 case "radCalendar": return new CalendarGridPurpose();
                 case "radJasmer": return new JasmerGridPurpose();
+                case "radOwner": return new OwnerGridPurpose();
                 default:
                     throw new Exception("invalid grid purpose");
             }

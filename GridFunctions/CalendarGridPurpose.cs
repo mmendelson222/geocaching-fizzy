@@ -11,6 +11,7 @@ namespace Fizzy.GridFunctions
         internal override void Initialize(List<GPXLoader.Cache> allgc, System.Windows.Forms.DataGridView grid)
         {
             grid.ColumnCount = 31;
+            grid.SelectionMode = DataGridViewSelectionMode.CellSelect;
 
             for (int m = 0; m < 12; m++)
             {

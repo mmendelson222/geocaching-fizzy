@@ -56,6 +56,7 @@
     <Compile Include="GridFunctions\CalendarGridPurpose.cs" />
     <Compile Include="GridFunctions\DTGridPurpose.cs" />
     <Compile Include="GridFunctions\GridPurposeFactory.cs" />
+    <Compile Include="GridFunctions\OwnerGridPurpose.cs" />
     <Compile Include="GridFunctions\JasmerGridPurpose.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Program.cs" />

@@ -43,8 +43,8 @@ namespace Fizzy
         {
             XDocument gpxDoc = XDocument.Load(sFile);
 
-            XNamespace gs = XNamespace.Get("http://www.groundspeak.com/cache/1/0/1");
-            XNamespace gpx = XNamespace.Get("http://www.topografix.com/GPX/1/0");
+            XNamespace gs = XNamespace.Get("http://www.groundspeak.com/cache/1/0/1");  //groundspeak:
+            XNamespace gpx = XNamespace.Get("http://www.topografix.com/GPX/1/0");  //no prefix
 
             var waypoints = (from waypoint in gpxDoc.Descendants(gpx + "wpt")
                              select new Cache
@@ -56,12 +56,15 @@ namespace Fizzy
                                  Difficulty = waypoint.Element(gs + "cache").Element(gs + "difficulty").Value,
                                  Terrain = waypoint.Element(gs + "cache").Element(gs + "terrain").Value,
                                  Owner = waypoint.Element(gs + "cache").Element(gs + "owner").Value,
+                                 PlacedBy = waypoint.Element(gs + "cache").Element(gs + "placed_by").Value,
+                                 PlacedById =  waypoint.Element(gs + "cache").Element(gs + "owner").Attribute("id").Value,
                                  State = waypoint.Element(gs + "cache").Element(gs + "state").Value,
                                  Name = waypoint.Element(gs + "cache").Element(gs + "name").Value,
                                  sHidden = waypoint.Element(gpx + "time").Value,
                                  Archived = waypoint.Element(gs + "cache").Attribute("archived").Value == "True",
                                  sFoundDate = DateFromCacheElement(gs, waypoint, FoundFilter(gs)),
                                  sDNFDate = DateFromCacheElement(gs, waypoint, NotFoundFilter(gs)),
+
                              });
 
             return waypoints.ToList();
@@ -101,6 +104,8 @@ namespace Fizzy
             internal string Difficulty;
             internal string Terrain;
             internal string Owner;
+            internal string PlacedBy;
+            internal string PlacedById;
             internal string State;
             internal string Name;
             internal bool Archived;

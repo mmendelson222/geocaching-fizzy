@@ -11,7 +11,8 @@ namespace Fizzy.GridFunctions
         internal override void Initialize(List<GPXLoader.Cache> allgc, System.Windows.Forms.DataGridView grid)
         {
             grid.ColumnCount = 12;
-
+            grid.SelectionMode = DataGridViewSelectionMode.CellSelect;
+       
             //row: year, column: month
             int thisYear = DateTime.Now.Year;
             int thisMonth = DateTime.Now.Month;
