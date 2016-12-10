@@ -42,7 +42,7 @@
             this.btnAvengedDnfs = new System.Windows.Forms.Button();
             this.lblFilters = new System.Windows.Forms.Label();
             this.cboYearFilter = new System.Windows.Forms.ComboBox();
-            this.cboTypeFIlter = new System.Windows.Forms.ComboBox();
+            this.cboTypeFilter = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -213,19 +213,19 @@
             // 
             // cboTypeFIlter
             // 
-            this.cboTypeFIlter.FormattingEnabled = true;
-            this.cboTypeFIlter.Location = new System.Drawing.Point(646, 1);
-            this.cboTypeFIlter.Name = "cboTypeFIlter";
-            this.cboTypeFIlter.Size = new System.Drawing.Size(121, 21);
-            this.cboTypeFIlter.TabIndex = 10;
-            this.cboTypeFIlter.SelectedIndexChanged += new System.EventHandler(this.refreshGridEvent);
+            this.cboTypeFilter.FormattingEnabled = true;
+            this.cboTypeFilter.Location = new System.Drawing.Point(646, 1);
+            this.cboTypeFilter.Name = "cboTypeFIlter";
+            this.cboTypeFilter.Size = new System.Drawing.Size(121, 21);
+            this.cboTypeFilter.TabIndex = 10;
+            this.cboTypeFilter.SelectedIndexChanged += new System.EventHandler(this.refreshGridEvent);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1464, 492);
-            this.Controls.Add(this.cboTypeFIlter);
+            this.Controls.Add(this.cboTypeFilter);
             this.Controls.Add(this.cboYearFilter);
             this.Controls.Add(this.lblFilters);
             this.Controls.Add(this.btnAvengedDnfs);
@@ -265,7 +265,7 @@
         private System.Windows.Forms.RadioButton radOwner;
         private System.Windows.Forms.Label lblFilters;
         private System.Windows.Forms.ComboBox cboYearFilter;
-        private System.Windows.Forms.ComboBox cboTypeFIlter;
+        private System.Windows.Forms.ComboBox cboTypeFilter;
     }
 }
 

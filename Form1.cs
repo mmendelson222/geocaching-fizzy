@@ -36,13 +36,7 @@ namespace Fizzy
             {
                 allgc = (new GPXLoader()).LoadGPXWaypoints(Config.FilePath);
 
-                var years = allgc.ConvertAll(w => w.Found.Year).Distinct().ToArray();
-                Array.Sort(years);
-                cboYearFilter.Items.Clear();
-                cboYearFilter.Items.Add("All Years");
-                foreach (var y in years)
-                    cboYearFilter.Items.Add(y);
-                cboYearFilter.SelectedIndex = 0;
+                InitializeFilterDropdowns(allgc);
 
                 return true;
             }
@@ -55,6 +49,29 @@ namespace Fizzy
                     MessageBox.Show(e.Message);
                 allgc = null;
                 return false;
+            }
+        }
+
+        private void InitializeFilterDropdowns(List<GPXLoader.Cache> geocaches)
+        {
+            {
+                var years = geocaches.ConvertAll(w => w.Found.Year).Distinct().ToArray();
+                Array.Sort(years);
+                cboYearFilter.Items.Clear();
+                cboYearFilter.Items.Add("All Years");
+                foreach (var y in years)
+                    cboYearFilter.Items.Add(y);
+                cboYearFilter.SelectedIndex = 0;
+            }
+
+            {
+                var types = geocaches.ConvertAll(w => w.GCType).Distinct().ToArray();
+                Array.Sort(types);
+                cboTypeFilter.Items.Clear();
+                cboTypeFilter.Items.Add("All Types");
+                foreach (var t in types)
+                    cboTypeFilter.Items.Add(t);
+                cboTypeFilter.SelectedIndex = 0;
             }
         }
 
@@ -129,7 +146,7 @@ namespace Fizzy
             if (allgc == null) return;
             if (sender == null) return;
             if (!((RadioButton)sender).Checked) return;
-           
+
             gridPurpose = GridPurposeFactory.Instance(((RadioButton)sender).Name);
 
             refreshGridEvent(sender, e);
@@ -151,8 +168,12 @@ namespace Fizzy
             List<GPXLoader.Cache> filteredGC = null;
             if (cboYearFilter.SelectedIndex > 0)
                 filteredGC = allgc.Where(c => c.Found.Year == (int)cboYearFilter.SelectedItem).ToList();
-            
-            //if (cboTypeFilter)
+
+            if (cboTypeFilter.SelectedIndex > 0)
+                if (filteredGC == null)
+                    filteredGC = allgc.Where(c => c.GCType == (string)cboTypeFilter.SelectedItem).ToList();
+                else
+                    filteredGC = filteredGC.Where(c => c.GCType == (string)cboTypeFilter.SelectedItem).ToList();
 
             if (filteredGC == null) return allgc;
             else return filteredGC;

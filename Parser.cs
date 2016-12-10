@@ -64,7 +64,7 @@ namespace Fizzy
                                  Archived = waypoint.Element(gs + "cache").Attribute("archived").Value == "True",
                                  sFoundDate = DateFromCacheElement(gs, waypoint, FoundFilter(gs)),
                                  sDNFDate = DateFromCacheElement(gs, waypoint, NotFoundFilter(gs)),
-
+                                 GCType = waypoint.Element(gs + "cache").Element(gs + "type").Value,
                              });
 
             return waypoints.ToList();
@@ -109,6 +109,7 @@ namespace Fizzy
             internal string State;
             internal string Name;
             internal bool Archived;
+            internal string GCType;
 
             private string sfound;
             internal string sFoundDate
