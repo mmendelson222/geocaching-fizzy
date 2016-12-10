@@ -43,6 +43,7 @@
             this.lblFilters = new System.Windows.Forms.Label();
             this.cboYearFilter = new System.Windows.Forms.ComboBox();
             this.cboTypeFilter = new System.Windows.Forms.ComboBox();
+            this.lblCount = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -211,20 +212,31 @@
             this.cboYearFilter.TabIndex = 9;
             this.cboYearFilter.SelectedIndexChanged += new System.EventHandler(this.refreshGridEvent);
             // 
-            // cboTypeFIlter
+            // cboTypeFilter
             // 
             this.cboTypeFilter.FormattingEnabled = true;
             this.cboTypeFilter.Location = new System.Drawing.Point(646, 1);
-            this.cboTypeFilter.Name = "cboTypeFIlter";
+            this.cboTypeFilter.Name = "cboTypeFilter";
             this.cboTypeFilter.Size = new System.Drawing.Size(121, 21);
             this.cboTypeFilter.TabIndex = 10;
             this.cboTypeFilter.SelectedIndexChanged += new System.EventHandler(this.refreshGridEvent);
+            // 
+            // lblCount
+            // 
+            this.lblCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCount.AutoSize = true;
+            this.lblCount.Location = new System.Drawing.Point(1435, 5);
+            this.lblCount.Name = "lblCount";
+            this.lblCount.Size = new System.Drawing.Size(13, 13);
+            this.lblCount.TabIndex = 11;
+            this.lblCount.Text = "0";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1464, 492);
+            this.Controls.Add(this.lblCount);
             this.Controls.Add(this.cboTypeFilter);
             this.Controls.Add(this.cboYearFilter);
             this.Controls.Add(this.lblFilters);
@@ -266,6 +278,7 @@
         private System.Windows.Forms.Label lblFilters;
         private System.Windows.Forms.ComboBox cboYearFilter;
         private System.Windows.Forms.ComboBox cboTypeFilter;
+        private System.Windows.Forms.Label lblCount;
     }
 }
 

@@ -158,6 +158,7 @@ namespace Fizzy
             {
                 grid.Rows.Clear();
                 List<GPXLoader.Cache> filteredGC = ApplyFilters(allgc);
+                lblCount.Text = filteredGC.Count.ToString();
                 gridPurpose.Initialize(filteredGC, grid);
                 grid_SizeChanged(null, null);
             }
