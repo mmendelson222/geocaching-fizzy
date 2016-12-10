@@ -5,7 +5,9 @@ This Windows program grids based on your finds.  The difference is that each gri
  * Difficulty/Terrain grid.  Click on a square for a list of all caches found with that DT rating.  
  * Finds by day Calendar.  Click on day for a list of your finds on that date, through the years.
  * Jasmer grid, which gives you all finds organized by the month the geocache was placed. 
- * Avenged DNF's, a simple list of all finds for which you previously posted a "Didn't find" log entry.  (no grid)
+ * Geocaches sorted by Owner
+ * ANY of the above can be filtered by either year found, or geocache type.  A count of currently shown caches is displayed.
+ * Avenged DNF's (not filtered), a simple list of all finds for which you previously posted a "Didn't find" log entry.  (no grid)
  
 ![screen shot](https://raw.githubusercontent.com/mmendelson222/geocaching-fizzy/master/images/fizzy.png)
 
@@ -18,7 +20,7 @@ This Windows program grids based on your finds.  The difference is that each gri
 
 NOTES: 
 * If you've marked a cache as found twice, only the first time will be counted.   This behavior seems to differ from the calendar on geocaching.com.
-* Unlike the calendar on geocaching.com, this calendar does NOT include lab caches (since they're not included in your "my finds" query).  The D/T grid should be identical.
+* Unlike the calendar on geocaching.com, this calendar does NOT include lab caches (since they're not included in your "my finds" query).  The D/T grid should be identical to the one on geocaching.com. 
 
 
 ## Developers 
