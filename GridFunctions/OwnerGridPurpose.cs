@@ -34,7 +34,7 @@ namespace Fizzy.GridFunctions
             
             int totCache = allgc.Count;
             int count = 0;
-            const int MAX = 50;
+            const int MAX = 500;
             foreach (var o in byOwner)
             {
                 var cacheList = o.ToList();

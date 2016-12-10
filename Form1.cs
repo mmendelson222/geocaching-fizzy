@@ -35,13 +35,24 @@ namespace Fizzy
             try
             {
                 allgc = (new GPXLoader()).LoadGPXWaypoints(Config.FilePath);
+
+                var years = allgc.ConvertAll(w => w.Found.Year).Distinct().ToArray();
+                Array.Sort(years);
+                cboYearFilter.Items.Clear();
+                cboYearFilter.Items.Add("All Years");
+                foreach (var y in years)
+                    cboYearFilter.Items.Add(y);
+                cboYearFilter.SelectedIndex = 0;
+
                 return true;
             }
             catch (Exception e)
             {
                 //was this the problem? 
-                if (File.Exists(Config.FilePath))
-                    MessageBox.Show("File is missing: " + Config.FilePath,  string.Empty,  MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                if (!File.Exists(Config.FilePath))
+                    MessageBox.Show("File is missing: " + Config.FilePath, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                    MessageBox.Show(e.Message);
                 allgc = null;
                 return false;
             }
@@ -118,13 +129,33 @@ namespace Fizzy
             if (allgc == null) return;
             if (sender == null) return;
             if (!((RadioButton)sender).Checked) return;
-
-            grid.Rows.Clear();
+           
             gridPurpose = GridPurposeFactory.Instance(((RadioButton)sender).Name);
 
-            gridPurpose.Initialize(allgc, grid);
+            refreshGridEvent(sender, e);
+        }
 
-            grid_SizeChanged(null, null);
+        private void refreshGridEvent(object sender, EventArgs e)
+        {
+            if (gridPurpose != null)
+            {
+                grid.Rows.Clear();
+                List<GPXLoader.Cache> filteredGC = ApplyFilters(allgc);
+                gridPurpose.Initialize(filteredGC, grid);
+                grid_SizeChanged(null, null);
+            }
+        }
+
+        private List<GPXLoader.Cache> ApplyFilters(List<GPXLoader.Cache> allgc)
+        {
+            List<GPXLoader.Cache> filteredGC = null;
+            if (cboYearFilter.SelectedIndex > 0)
+                filteredGC = allgc.Where(c => c.Found.Year == (int)cboYearFilter.SelectedItem).ToList();
+            
+            //if (cboTypeFilter)
+
+            if (filteredGC == null) return allgc;
+            else return filteredGC;
         }
 
         private void btnAvengedDnfs_Click(object sender, EventArgs e)

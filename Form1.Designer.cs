@@ -37,9 +37,12 @@
             this.radDT = new System.Windows.Forms.RadioButton();
             this.radCalendar = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.radOwner = new System.Windows.Forms.RadioButton();
             this.radJasmer = new System.Windows.Forms.RadioButton();
             this.btnAvengedDnfs = new System.Windows.Forms.Button();
-            this.radOwner = new System.Windows.Forms.RadioButton();
+            this.lblFilters = new System.Windows.Forms.Label();
+            this.cboYearFilter = new System.Windows.Forms.ComboBox();
+            this.cboTypeFIlter = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -155,6 +158,18 @@
             this.panel1.Size = new System.Drawing.Size(287, 24);
             this.panel1.TabIndex = 6;
             // 
+            // radOwner
+            // 
+            this.radOwner.AutoSize = true;
+            this.radOwner.Location = new System.Drawing.Point(207, 3);
+            this.radOwner.Name = "radOwner";
+            this.radOwner.Size = new System.Drawing.Size(56, 17);
+            this.radOwner.TabIndex = 7;
+            this.radOwner.TabStop = true;
+            this.radOwner.Text = "Owner";
+            this.radOwner.UseVisualStyleBackColor = true;
+            this.radOwner.CheckedChanged += new System.EventHandler(this.radGridType_CheckedChanged);
+            // 
             // radJasmer
             // 
             this.radJasmer.AutoSize = true;
@@ -177,23 +192,42 @@
             this.btnAvengedDnfs.UseVisualStyleBackColor = true;
             this.btnAvengedDnfs.Click += new System.EventHandler(this.btnAvengedDnfs_Click);
             // 
-            // radOwner
+            // lblFilters
             // 
-            this.radOwner.AutoSize = true;
-            this.radOwner.Location = new System.Drawing.Point(207, 3);
-            this.radOwner.Name = "radOwner";
-            this.radOwner.Size = new System.Drawing.Size(56, 17);
-            this.radOwner.TabIndex = 7;
-            this.radOwner.TabStop = true;
-            this.radOwner.Text = "Owner";
-            this.radOwner.UseVisualStyleBackColor = true;
-            this.radOwner.CheckedChanged += new System.EventHandler(this.radGridType_CheckedChanged);
+            this.lblFilters.AutoSize = true;
+            this.lblFilters.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblFilters.Location = new System.Drawing.Point(459, 5);
+            this.lblFilters.Name = "lblFilters";
+            this.lblFilters.Size = new System.Drawing.Size(37, 13);
+            this.lblFilters.TabIndex = 8;
+            this.lblFilters.Text = "Filters:";
+            // 
+            // cboYearFilter
+            // 
+            this.cboYearFilter.FormattingEnabled = true;
+            this.cboYearFilter.Location = new System.Drawing.Point(510, 1);
+            this.cboYearFilter.Name = "cboYearFilter";
+            this.cboYearFilter.Size = new System.Drawing.Size(121, 21);
+            this.cboYearFilter.TabIndex = 9;
+            this.cboYearFilter.SelectedIndexChanged += new System.EventHandler(this.refreshGridEvent);
+            // 
+            // cboTypeFIlter
+            // 
+            this.cboTypeFIlter.FormattingEnabled = true;
+            this.cboTypeFIlter.Location = new System.Drawing.Point(646, 1);
+            this.cboTypeFIlter.Name = "cboTypeFIlter";
+            this.cboTypeFIlter.Size = new System.Drawing.Size(121, 21);
+            this.cboTypeFIlter.TabIndex = 10;
+            this.cboTypeFIlter.SelectedIndexChanged += new System.EventHandler(this.refreshGridEvent);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1464, 492);
+            this.Controls.Add(this.cboTypeFIlter);
+            this.Controls.Add(this.cboYearFilter);
+            this.Controls.Add(this.lblFilters);
             this.Controls.Add(this.btnAvengedDnfs);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnLoad);
@@ -229,6 +263,9 @@
         private System.Windows.Forms.RadioButton radJasmer;
         private System.Windows.Forms.Button btnAvengedDnfs;
         private System.Windows.Forms.RadioButton radOwner;
+        private System.Windows.Forms.Label lblFilters;
+        private System.Windows.Forms.ComboBox cboYearFilter;
+        private System.Windows.Forms.ComboBox cboTypeFIlter;
     }
 }
 
