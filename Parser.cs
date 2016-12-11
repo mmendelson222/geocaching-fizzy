@@ -65,6 +65,7 @@ namespace Fizzy
                                  sFoundDate = DateFromCacheElement(gs, waypoint, FoundFilter(gs)),
                                  sDNFDate = DateFromCacheElement(gs, waypoint, NotFoundFilter(gs)),
                                  GCType = waypoint.Element(gs + "cache").Element(gs + "type").Value,
+                                 Log = LogsFromCacheElement(gs, waypoint),
                              });
 
             return waypoints.ToList();
@@ -80,6 +81,25 @@ namespace Fizzy
             XElement log = waypoint.Element(gs + "cache").Element(gs + "logs").Elements().Where(filter).FirstOrDefault();
             if (log == null) return null;
             return log.Element(gs + "date").Value;
+        }
+
+        /// <summary>
+        /// Gets all log text.
+        /// TODO: format nicely
+        /// </summary>
+        private string LogsFromCacheElement(XNamespace gs, XElement waypoint)
+        {
+            //get the first log conforming to the filter, or null.
+            var logs = waypoint.Element(gs + "cache").Element(gs + "logs").Elements();
+            if (logs == null) return null;
+
+            StringBuilder sb = new StringBuilder();
+            foreach (var log in logs)
+            {
+                sb.AppendFormat("{0} {1}\n", log.Element(gs + "type").Value, log.Element(gs + "date").Value.Substring(0, 10));
+                sb.AppendFormat("{0}\n\n", log.Element(gs + "text").Value);                
+            }
+            return sb.ToString().Trim();
         }
 
         /// <summary>
@@ -110,6 +130,7 @@ namespace Fizzy
             internal string Name;
             internal bool Archived;
             internal string GCType;
+            internal string Log;
 
             private string sfound;
             internal string sFoundDate
@@ -130,7 +151,7 @@ namespace Fizzy
                 set
                 {
                     sDnf = value;
-                    DateTime.TryParse(sfound, out DNF);
+                    DateTime.TryParse(sDnf, out DNF);
                 }
             }
             internal DateTime DNF;

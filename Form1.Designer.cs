@@ -30,7 +30,7 @@
         {
             this.grid = new System.Windows.Forms.DataGridView();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.text = new System.Windows.Forms.RichTextBox();
+            this.text = new RichTextBoxLinks.RichTextBoxEx();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.btnLoad = new System.Windows.Forms.Button();
             this.dlgGPX = new System.Windows.Forms.OpenFileDialog();
@@ -93,6 +93,7 @@
             // 
             // text
             // 
+            this.text.DetectUrls = true;
             this.text.Dock = System.Windows.Forms.DockStyle.Fill;
             this.text.Location = new System.Drawing.Point(0, 0);
             this.text.Name = "text";
@@ -267,7 +268,7 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.Button btnLoad;
-        private System.Windows.Forms.RichTextBox text;
+        private RichTextBoxLinks.RichTextBoxEx text;
         private System.Windows.Forms.OpenFileDialog dlgGPX;
         private System.Windows.Forms.RadioButton radDT;
         private System.Windows.Forms.RadioButton radCalendar;

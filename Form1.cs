@@ -8,6 +8,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -30,15 +31,12 @@ namespace Fizzy
             radDT.Checked = true;
         }
 
-        private bool LoadGpxFile()
+        private void LoadGpxFile()
         {
             try
             {
                 allgc = (new GPXLoader()).LoadGPXWaypoints(Config.FilePath);
-
                 InitializeFilterDropdowns(allgc);
-
-                return true;
             }
             catch (Exception e)
             {
@@ -48,7 +46,6 @@ namespace Fizzy
                 else
                     MessageBox.Show(e.Message);
                 allgc = null;
-                return false;
             }
         }
 
@@ -106,7 +103,38 @@ namespace Fizzy
 
         private void text_LinkClicked(object sender, LinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(e.LinkText);
+            if (e.LinkText.Contains('|'))
+            {
+                string[] parts = e.LinkText.Split(new char[] { '|' });
+                if (parts.Length != 2)
+                {
+                    MessageBox.Show("Internal error.  This link is not set up properly.");
+                    return;
+                }
+
+                string gc = parts[1].Trim();
+                switch (parts[0])
+                {
+                    case "web":
+                        System.Diagnostics.Process.Start("http://coord.info/" + gc);
+                        return;
+                    case "log":
+                        MessageBox.Show(GetLog(gc), "Log(s) for " + gc);
+                        return;
+                    default:
+                        MessageBox.Show("Link type not defined: " + gc);
+                        return;
+                }
+            }
+            else
+            {
+                System.Diagnostics.Process.Start(e.LinkText);
+            }
+        }
+
+        private string GetLog(string gccode)
+        {
+            return allgc.Find(g => g.Code == gccode).Log;
         }
 
         /// <summary>
@@ -187,16 +215,31 @@ namespace Fizzy
             CreateList(avenged, formatter.CacheFormatter, text);
         }
 
-        internal static void CreateList(IEnumerable<GPXLoader.Cache> caches, ACacheFormatter.CacheFmtDelegate cacheFormatter, System.Windows.Forms.RichTextBox textBox)
+        internal static void CreateList(IEnumerable<GPXLoader.Cache> caches, ACacheFormatter.CacheFmtDelegate cacheFormatter, RichTextBoxLinks.RichTextBoxEx textBox)
         {
-            StringBuilder sb = new StringBuilder();
+            textBox.Text = string.Empty; //clear formatting
+
+            //internal links will be in the form directive:GC0000
+            Regex hyper = new Regex("([a-zA-Z]+):(GC\\w+)");
+
+            bool addTitle = true;
             foreach (var c in caches.OrderByDescending(a => a.sFoundDate))
             {
-                sb.Append(cacheFormatter(sb.Length == 0, caches, c));
-            }
+                string s = cacheFormatter(addTitle, caches, c).ToString();
 
-            textBox.Text = string.Empty; //clear formatting
-            textBox.Text = sb.ToString();
+                int idx = 0;
+                var matches = hyper.Matches(s);
+                for (int i = 0; i < matches.Count; i++)
+                {
+                    var match = matches[i];
+                    textBox.SelectedText = s.Substring(idx, match.Index - idx);
+                    textBox.InsertLink(match.Groups[1].Value, match.Groups[2].Value + " ");  //had to add space due to buggy custom rich text control.
+                    idx = match.Index + match.Length;
+                }
+                textBox.SelectedText = s.Substring(idx, s.Length - idx);
+
+                addTitle = false;
+            }
 
             //embolden the first line
             textBox.Select(0, textBox.Text.IndexOf('\n'));

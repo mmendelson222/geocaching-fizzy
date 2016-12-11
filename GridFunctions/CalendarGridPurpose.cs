@@ -73,7 +73,7 @@ namespace Fizzy.GridFunctions
             StringBuilder sb = new StringBuilder();
             if (firstLine)
                 sb.AppendFormat("Caches found on: {0:M-d}\n", c.Found);
-            sb.AppendFormat("{5:yyyy} {0} {1}/{2} {3} http://coord.info/{4} {6}\n", c.Name, c.Difficulty, c.Terrain, c.State, c.Code, c.Found, (c.Archived ? "(archived)" : string.Empty));
+            sb.AppendFormat("{5:yyyy} {0} {1}/{2} {3} web:{4} log:{4} {6}\n", c.Name, c.Difficulty, c.Terrain, c.State, c.Code, c.Found, (c.Archived ? "(archived)" : string.Empty));
             return sb;
         }
     }
