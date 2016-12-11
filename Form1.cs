@@ -113,11 +113,14 @@ namespace Fizzy
                 }
 
                 string gc = parts[1].Trim();
+                if (parts[0].StartsWith("GC"))
+                {
+                    System.Diagnostics.Process.Start("http://coord.info/" + gc);
+                    return;
+                }
+
                 switch (parts[0])
                 {
-                    case "web":
-                        System.Diagnostics.Process.Start("http://coord.info/" + gc);
-                        return;
                     case "log":
                         MessageBox.Show(GetLog(gc), "Log(s) for " + gc);
                         return;
@@ -220,7 +223,7 @@ namespace Fizzy
             textBox.Text = string.Empty; //clear formatting
 
             //internal links will be in the form directive:GC0000
-            Regex hyper = new Regex("([a-zA-Z]+):(GC\\w+)");
+            Regex hyper = new Regex("(\\w+):(GC\\w+)");
 
             bool addTitle = true;
             foreach (var c in caches.OrderByDescending(a => a.sFoundDate))

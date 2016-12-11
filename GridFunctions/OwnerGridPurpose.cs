@@ -76,7 +76,7 @@ namespace Fizzy.GridFunctions
             StringBuilder sb = new StringBuilder();
             if (firstLine)
                 sb.AppendFormat("Caches hidden by: {0}\n", c.Owner);
-            sb.AppendFormat("{0:MM-dd-yy} {1} {2} web:{3} log:{3} {4}\n", c.Found, c.Name, c.State, c.Code, (c.Archived ? "(archived)" : string.Empty));
+            sb.AppendFormat("{0:MM-dd-yy} {1} {2} {3}:{3} log:{3} {4}\n", c.Found, c.Name, c.State, c.Code, (c.Archived ? "(archived)" : string.Empty));
             return sb;
         }
     }
