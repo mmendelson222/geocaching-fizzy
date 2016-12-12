@@ -123,6 +123,7 @@
             // dlgGPX
             // 
             this.dlgGPX.DefaultExt = "gpx";
+            this.dlgGPX.Title = "Please select your My Finds gpx";
             this.dlgGPX.Filter = "GPX files|*.gpx|All files (*.*)|*.*";
             // 
             // radDT

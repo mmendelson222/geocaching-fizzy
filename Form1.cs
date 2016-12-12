@@ -27,6 +27,9 @@ namespace Fizzy
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            if (!File.Exists(Config.FilePath))
+                btnLoad_Click(null, null);
+
             LoadGpxFile();
             radDT.Checked = true;
         }
