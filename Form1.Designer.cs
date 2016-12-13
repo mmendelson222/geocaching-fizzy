@@ -123,8 +123,8 @@
             // dlgGPX
             // 
             this.dlgGPX.DefaultExt = "gpx";
-            this.dlgGPX.Title = "Please select your My Finds gpx";
             this.dlgGPX.Filter = "GPX files|*.gpx|All files (*.*)|*.*";
+            this.dlgGPX.Title = "Please select your My Finds gpx";
             // 
             // radDT
             // 
@@ -164,7 +164,7 @@
             // radOwner
             // 
             this.radOwner.AutoSize = true;
-            this.radOwner.Location = new System.Drawing.Point(207, 3);
+            this.radOwner.Location = new System.Drawing.Point(207, 4);
             this.radOwner.Name = "radOwner";
             this.radOwner.Size = new System.Drawing.Size(56, 17);
             this.radOwner.TabIndex = 7;

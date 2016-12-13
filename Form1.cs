@@ -158,11 +158,14 @@ namespace Fizzy
         /// </summary>
         private void grid_SizeChanged(object sender, EventArgs e)
         {
-            int width = grid.Width;
-            width -= grid.RowHeadersWidth;
-            var colwidth = width / grid.Columns.Count;
-            foreach (DataGridViewColumn col in grid.Columns)
-                col.Width = colwidth;
+            if (grid.Columns.Count > 0)
+            {
+                int width = grid.Width;
+                width -= grid.RowHeadersWidth;
+                var colwidth = width / grid.Columns.Count;
+                foreach (DataGridViewColumn col in grid.Columns)
+                    col.Width = colwidth;
+            }
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
