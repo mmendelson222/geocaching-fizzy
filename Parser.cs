@@ -58,6 +58,7 @@ namespace Fizzy
                                  Owner = waypoint.Element(gs + "cache").Element(gs + "owner").Value,
                                  PlacedBy = waypoint.Element(gs + "cache").Element(gs + "placed_by").Value,
                                  PlacedById =  waypoint.Element(gs + "cache").Element(gs + "owner").Attribute("id").Value,
+                                 Country = waypoint.Element(gs + "cache").Element(gs + "country").Value,
                                  State = waypoint.Element(gs + "cache").Element(gs + "state").Value,
                                  Name = waypoint.Element(gs + "cache").Element(gs + "name").Value,
                                  sHidden = waypoint.Element(gpx + "time").Value,
@@ -131,6 +132,7 @@ namespace Fizzy
             internal bool Archived;
             internal string GCType;
             internal string Log;
+            internal string Country;
 
             private string sfound;
             internal string sFoundDate

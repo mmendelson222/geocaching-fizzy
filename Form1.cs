@@ -19,7 +19,7 @@ namespace Fizzy
     {
         List<Fizzy.GPXLoader.Cache> allgc = null;
         AGridPurpose gridPurpose;
-
+        Filters frmFilters;
         public Form1()
         {
             InitializeComponent();
@@ -30,8 +30,13 @@ namespace Fizzy
             if (!File.Exists(Config.FilePath))
                 btnLoad_Click(null, null);
 
+            frmFilters = new Filters();
+
             LoadGpxFile();
             radDT.Checked = true;
+
+            frmFilters.Icon = this.Icon;
+            frmFilters.FilterChanged += filterFormChanged;
         }
 
         private void LoadGpxFile()
@@ -39,7 +44,7 @@ namespace Fizzy
             try
             {
                 allgc = (new GPXLoader()).LoadGPXWaypoints(Config.FilePath);
-                InitializeFilterDropdowns(allgc);
+                frmFilters.Initialize(allgc);
             }
             catch (Exception e)
             {
@@ -49,29 +54,6 @@ namespace Fizzy
                 else
                     MessageBox.Show(e.Message);
                 allgc = null;
-            }
-        }
-
-        private void InitializeFilterDropdowns(List<GPXLoader.Cache> geocaches)
-        {
-            {
-                var years = geocaches.ConvertAll(w => w.Found.Year).Distinct().ToArray();
-                Array.Sort(years);
-                cboYearFilter.Items.Clear();
-                cboYearFilter.Items.Add("All Years");
-                foreach (var y in years)
-                    cboYearFilter.Items.Add(y);
-                cboYearFilter.SelectedIndex = 0;
-            }
-
-            {
-                var types = geocaches.ConvertAll(w => w.GCType).Distinct().ToArray();
-                Array.Sort(types);
-                cboTypeFilter.Items.Clear();
-                cboTypeFilter.Items.Add("All Types");
-                foreach (var t in types)
-                    cboTypeFilter.Items.Add(t);
-                cboTypeFilter.SelectedIndex = 0;
             }
         }
 
@@ -189,6 +171,12 @@ namespace Fizzy
             refreshGridEvent(sender, e);
         }
 
+        private void filterFormChanged(object sender, string filterStatus)
+        {
+            lblFilterStatus.Text = filterStatus;
+            refreshGridEvent(sender, null);
+        }
+
         private void refreshGridEvent(object sender, EventArgs e)
         {
             if (gridPurpose != null)
@@ -203,18 +191,20 @@ namespace Fizzy
 
         private List<GPXLoader.Cache> ApplyFilters(List<GPXLoader.Cache> allgc)
         {
-            List<GPXLoader.Cache> filteredGC = null;
-            if (cboYearFilter.SelectedIndex > 0)
-                filteredGC = allgc.Where(c => c.Found.Year == (int)cboYearFilter.SelectedItem).ToList();
+            List<GPXLoader.Cache> filteredGC = allgc.ToList();
+            if (frmFilters.SelectedYear > 0)
+                filteredGC = filteredGC.Where(c => c.Found.Year == frmFilters.SelectedYear).ToList();
 
-            if (cboTypeFilter.SelectedIndex > 0)
-                if (filteredGC == null)
-                    filteredGC = allgc.Where(c => c.GCType == (string)cboTypeFilter.SelectedItem).ToList();
-                else
-                    filteredGC = filteredGC.Where(c => c.GCType == (string)cboTypeFilter.SelectedItem).ToList();
+            if (frmFilters.SelectedCacheType != null)
+                  filteredGC = filteredGC.Where(c => c.GCType == frmFilters.SelectedCacheType).ToList();
 
-            if (filteredGC == null) return allgc;
-            else return filteredGC;
+            if (frmFilters.SelectedState != null)
+                filteredGC = filteredGC.Where(c => c.State == frmFilters.SelectedState).ToList();
+
+            if (frmFilters.SelectedCountry != null)
+                filteredGC = filteredGC.Where(c => c.Country == frmFilters.SelectedCountry).ToList();
+
+            return filteredGC;
         }
 
         private void btnAvengedDnfs_Click(object sender, EventArgs e)
@@ -253,6 +243,11 @@ namespace Fizzy
             //embolden the first line
             textBox.Select(0, textBox.Text.IndexOf('\n'));
             textBox.SelectionFont = new Font(textBox.Font, FontStyle.Bold);
+        }
+
+        private void btnFilters_Click(object sender, EventArgs e)
+        {
+            frmFilters.Show();
         }
     }
 

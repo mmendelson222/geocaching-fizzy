@@ -41,10 +41,9 @@
             this.radOwner = new System.Windows.Forms.RadioButton();
             this.radJasmer = new System.Windows.Forms.RadioButton();
             this.btnAvengedDnfs = new System.Windows.Forms.Button();
-            this.lblFilters = new System.Windows.Forms.Label();
-            this.cboYearFilter = new System.Windows.Forms.ComboBox();
-            this.cboTypeFilter = new System.Windows.Forms.ComboBox();
             this.lblCount = new System.Windows.Forms.Label();
+            this.btnFilters = new System.Windows.Forms.Button();
+            this.lblFilterStatus = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -196,34 +195,6 @@
             this.btnAvengedDnfs.UseVisualStyleBackColor = true;
             this.btnAvengedDnfs.Click += new System.EventHandler(this.btnAvengedDnfs_Click);
             // 
-            // lblFilters
-            // 
-            this.lblFilters.AutoSize = true;
-            this.lblFilters.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.lblFilters.Location = new System.Drawing.Point(459, 5);
-            this.lblFilters.Name = "lblFilters";
-            this.lblFilters.Size = new System.Drawing.Size(37, 13);
-            this.lblFilters.TabIndex = 8;
-            this.lblFilters.Text = "Filters:";
-            // 
-            // cboYearFilter
-            // 
-            this.cboYearFilter.FormattingEnabled = true;
-            this.cboYearFilter.Location = new System.Drawing.Point(510, 1);
-            this.cboYearFilter.Name = "cboYearFilter";
-            this.cboYearFilter.Size = new System.Drawing.Size(121, 21);
-            this.cboYearFilter.TabIndex = 9;
-            this.cboYearFilter.SelectedIndexChanged += new System.EventHandler(this.refreshGridEvent);
-            // 
-            // cboTypeFilter
-            // 
-            this.cboTypeFilter.FormattingEnabled = true;
-            this.cboTypeFilter.Location = new System.Drawing.Point(646, 1);
-            this.cboTypeFilter.Name = "cboTypeFilter";
-            this.cboTypeFilter.Size = new System.Drawing.Size(121, 21);
-            this.cboTypeFilter.TabIndex = 10;
-            this.cboTypeFilter.SelectedIndexChanged += new System.EventHandler(this.refreshGridEvent);
-            // 
             // lblCount
             // 
             this.lblCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -234,15 +205,33 @@
             this.lblCount.TabIndex = 11;
             this.lblCount.Text = "0";
             // 
+            // btnFilters
+            // 
+            this.btnFilters.Location = new System.Drawing.Point(471, 0);
+            this.btnFilters.Name = "btnFilters";
+            this.btnFilters.Size = new System.Drawing.Size(75, 23);
+            this.btnFilters.TabIndex = 12;
+            this.btnFilters.Text = "Filters";
+            this.btnFilters.UseVisualStyleBackColor = true;
+            this.btnFilters.Click += new System.EventHandler(this.btnFilters_Click);
+            // 
+            // lblFilterStatus
+            // 
+            this.lblFilterStatus.AutoSize = true;
+            this.lblFilterStatus.Location = new System.Drawing.Point(566, 8);
+            this.lblFilterStatus.Name = "lblFilterStatus";
+            this.lblFilterStatus.Size = new System.Drawing.Size(35, 13);
+            this.lblFilterStatus.TabIndex = 13;
+            this.lblFilterStatus.Text = "label1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1464, 492);
+            this.Controls.Add(this.lblFilterStatus);
+            this.Controls.Add(this.btnFilters);
             this.Controls.Add(this.lblCount);
-            this.Controls.Add(this.cboTypeFilter);
-            this.Controls.Add(this.cboYearFilter);
-            this.Controls.Add(this.lblFilters);
             this.Controls.Add(this.btnAvengedDnfs);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnLoad);
@@ -279,10 +268,9 @@
         private System.Windows.Forms.RadioButton radJasmer;
         private System.Windows.Forms.Button btnAvengedDnfs;
         private System.Windows.Forms.RadioButton radOwner;
-        private System.Windows.Forms.Label lblFilters;
-        private System.Windows.Forms.ComboBox cboYearFilter;
-        private System.Windows.Forms.ComboBox cboTypeFilter;
         private System.Windows.Forms.Label lblCount;
+        private System.Windows.Forms.Button btnFilters;
+        private System.Windows.Forms.Label lblFilterStatus;
     }
 }
 
