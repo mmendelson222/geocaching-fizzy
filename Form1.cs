@@ -19,7 +19,7 @@ namespace Fizzy
     {
         List<Fizzy.GPXLoader.Cache> allgc = null;
         AGridPurpose gridPurpose;
-        Filters frmFilters;
+
         public Form1()
         {
             InitializeComponent();
@@ -30,13 +30,10 @@ namespace Fizzy
             if (!File.Exists(Config.FilePath))
                 btnLoad_Click(null, null);
 
-            frmFilters = new Filters();
-
             LoadGpxFile();
             radDT.Checked = true;
 
-            frmFilters.Icon = this.Icon;
-            frmFilters.FilterChanged += filterFormChanged;
+            filterControl1.FilterChanged += filterFormChanged;
         }
 
         private void LoadGpxFile()
@@ -44,7 +41,7 @@ namespace Fizzy
             try
             {
                 allgc = (new GPXLoader()).LoadGPXWaypoints(Config.FilePath);
-                frmFilters.Initialize(allgc);
+                filterControl1.Initialize(allgc);
             }
             catch (Exception e)
             {
@@ -173,7 +170,7 @@ namespace Fizzy
 
         private void filterFormChanged(object sender, string filterStatus)
         {
-            lblFilterStatus.Text = filterStatus;
+            //lblFilterStatus.Text = filterStatus;
             refreshGridEvent(sender, null);
         }
 
@@ -192,17 +189,17 @@ namespace Fizzy
         private List<GPXLoader.Cache> ApplyFilters(List<GPXLoader.Cache> allgc)
         {
             List<GPXLoader.Cache> filteredGC = allgc.ToList();
-            if (frmFilters.SelectedYear > 0)
-                filteredGC = filteredGC.Where(c => c.Found.Year == frmFilters.SelectedYear).ToList();
+            if (filterControl1.SelectedYear > 0)
+                filteredGC = filteredGC.Where(c => c.Found.Year == filterControl1.SelectedYear).ToList();
 
-            if (frmFilters.SelectedCacheType != null)
-                  filteredGC = filteredGC.Where(c => c.GCType == frmFilters.SelectedCacheType).ToList();
+            if (filterControl1.SelectedCacheType != null)
+                filteredGC = filteredGC.Where(c => c.GCType == filterControl1.SelectedCacheType).ToList();
 
-            if (frmFilters.SelectedState != null)
-                filteredGC = filteredGC.Where(c => c.State == frmFilters.SelectedState).ToList();
+            if (filterControl1.SelectedState != null)
+                filteredGC = filteredGC.Where(c => c.State == filterControl1.SelectedState).ToList();
 
-            if (frmFilters.SelectedCountry != null)
-                filteredGC = filteredGC.Where(c => c.Country == frmFilters.SelectedCountry).ToList();
+            if (filterControl1.SelectedCountry != null)
+                filteredGC = filteredGC.Where(c => c.Country == filterControl1.SelectedCountry).ToList();
 
             return filteredGC;
         }
@@ -247,7 +244,7 @@ namespace Fizzy
 
         private void btnFilters_Click(object sender, EventArgs e)
         {
-            frmFilters.Show();
+            //frmFilters.Show();
         }
     }
 

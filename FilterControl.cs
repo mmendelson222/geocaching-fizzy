@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,17 +10,23 @@ using System.Windows.Forms;
 
 namespace Fizzy
 {
-    public partial class Filters : Form
+    public partial class FilterControl : UserControl
     {
+
         public delegate void FilterFormChangedDelegeate(object sender, string status);
         public event FilterFormChangedDelegeate FilterChanged;
 
         Dictionary<string, string[]> countryStates;
         string[] allStates;
 
-        public Filters()
+        public FilterControl()
         {
             InitializeComponent();
+        }
+
+        private void FilterControl_Load(object sender, EventArgs e)
+        {
+
         }
 
         public int SelectedYear
@@ -141,11 +147,6 @@ namespace Fizzy
                 cboState.Items.AddRange(countryStates[SelectedCountry]);
             cboState.Enabled = cboState.Items.Count > 1;
             cboState.SelectedIndex = 0;   //triggers ControlValueChanged
-        }
-
-        private void btnOK_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         private void btnReset_Click(object sender, EventArgs e)
