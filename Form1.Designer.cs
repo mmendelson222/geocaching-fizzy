@@ -32,6 +32,7 @@
             this.grid = new System.Windows.Forms.DataGridView();
             this.splitGrid = new System.Windows.Forms.SplitContainer();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txtGpxMeta = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.btnLoad = new System.Windows.Forms.Button();
             this.dlgGPX = new System.Windows.Forms.OpenFileDialog();
@@ -42,7 +43,6 @@
             this.radJasmer = new System.Windows.Forms.RadioButton();
             this.btnAvengedDnfs = new System.Windows.Forms.Button();
             this.lblCount = new System.Windows.Forms.Label();
-            this.txtGpxMeta = new System.Windows.Forms.TextBox();
             this.filterControl1 = new Fizzy.FilterControl();
             this.text = new RichTextBoxLinks.RichTextBoxEx();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
@@ -75,6 +75,7 @@
             this.grid.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.grid_CellFormatting);
             this.grid.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.grid_RowPrePaint);
             this.grid.SizeChanged += new System.EventHandler(this.grid_SizeChanged);
+            this.grid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.grid_KeyDown);
             // 
             // splitGrid
             // 
@@ -103,6 +104,17 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(128, 560);
             this.panel2.TabIndex = 12;
+            // 
+            // txtGpxMeta
+            // 
+            this.txtGpxMeta.BackColor = System.Drawing.SystemColors.Control;
+            this.txtGpxMeta.Enabled = false;
+            this.txtGpxMeta.Location = new System.Drawing.Point(4, 212);
+            this.txtGpxMeta.Multiline = true;
+            this.txtGpxMeta.Name = "txtGpxMeta";
+            this.txtGpxMeta.Size = new System.Drawing.Size(118, 36);
+            this.txtGpxMeta.TabIndex = 2;
+            this.txtGpxMeta.Text = "User:\r\nDate:";
             // 
             // menuStrip1
             // 
@@ -203,17 +215,6 @@
             this.lblCount.TabIndex = 11;
             this.lblCount.Text = "0";
             // 
-            // txtGpxMeta
-            // 
-            this.txtGpxMeta.BackColor = System.Drawing.SystemColors.Control;
-            this.txtGpxMeta.Enabled = false;
-            this.txtGpxMeta.Location = new System.Drawing.Point(4, 212);
-            this.txtGpxMeta.Multiline = true;
-            this.txtGpxMeta.Name = "txtGpxMeta";
-            this.txtGpxMeta.Size = new System.Drawing.Size(118, 36);
-            this.txtGpxMeta.TabIndex = 2;
-            this.txtGpxMeta.Text = "User:\r\nDate:";
-            // 
             // filterControl1
             // 
             this.filterControl1.EventOff = false;
@@ -229,6 +230,7 @@
             this.text.Dock = System.Windows.Forms.DockStyle.Fill;
             this.text.Location = new System.Drawing.Point(0, 0);
             this.text.Name = "text";
+            this.text.ReadOnly = true;
             this.text.Size = new System.Drawing.Size(407, 560);
             this.text.TabIndex = 0;
             this.text.Text = "";

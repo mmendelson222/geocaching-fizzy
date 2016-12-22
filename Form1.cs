@@ -42,7 +42,7 @@ namespace Fizzy
             {
                 var loader = new GPXLoader(Config.FilePath);
                 allgc = loader.LoadGPXWaypoints();
-                
+
                 GPXLoader.GpxMeta meta = loader.GetGpxMeta();
                 txtGpxMeta.Text = string.Format("User: {0}\r\nDate: {1:MMM d, yyyy}", meta.User, meta.Date);
 
@@ -79,9 +79,30 @@ namespace Fizzy
 
         private void grid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+            SelectCell(e.ColumnIndex, e.RowIndex);
+        }
 
-            var cell = grid[e.ColumnIndex, e.RowIndex];
+        private void grid_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyValue)
+            {
+                case 13:
+                    SelectCell(grid.SelectedCells[0].ColumnIndex, grid.SelectedCells[0].RowIndex);
+                    e.Handled = true;
+                    break;
+
+                case 9:
+                    grid.Parent.SelectNextControl(grid, (e.Modifiers & Keys.Shift) == 0, true, true, true);
+                    e.Handled = true;
+                    break;
+            }
+        }
+
+        private void SelectCell(int col, int row)
+        {
+            if (row < 0 || col < 0) return;
+
+            var cell = grid[col, row];
             var caches = cell.Tag as List<Fizzy.GPXLoader.Cache>;
             if (caches == null) return;
 
@@ -187,6 +208,8 @@ namespace Fizzy
                 List<GPXLoader.Cache> filteredGC = ApplyFilters(allgc);
                 lblCount.Text = filteredGC.Count.ToString();
                 gridPurpose.Initialize(filteredGC, grid);
+                grid.ClearSelection();
+                text.Clear();
                 grid_SizeChanged(null, null);
             }
         }
@@ -251,6 +274,8 @@ namespace Fizzy
         {
             //frmFilters.Show();
         }
+
+
     }
 
 }

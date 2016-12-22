@@ -47,6 +47,7 @@
             // 
             // cboState
             // 
+            this.cboState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboState.FormattingEnabled = true;
             this.cboState.Location = new System.Drawing.Point(0, 108);
             this.cboState.Name = "cboState";
@@ -56,6 +57,7 @@
             // 
             // cboCountry
             // 
+            this.cboCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboCountry.FormattingEnabled = true;
             this.cboCountry.Location = new System.Drawing.Point(0, 72);
             this.cboCountry.Name = "cboCountry";
@@ -65,6 +67,7 @@
             // 
             // cboYearFilter
             // 
+            this.cboYearFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboYearFilter.FormattingEnabled = true;
             this.cboYearFilter.Location = new System.Drawing.Point(0, 0);
             this.cboYearFilter.Name = "cboYearFilter";
@@ -74,6 +77,7 @@
             // 
             // cboTypeFilter
             // 
+            this.cboTypeFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTypeFilter.FormattingEnabled = true;
             this.cboTypeFilter.Location = new System.Drawing.Point(0, 36);
             this.cboTypeFilter.Name = "cboTypeFilter";
