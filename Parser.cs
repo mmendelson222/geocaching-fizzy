@@ -10,15 +10,22 @@ namespace Fizzy
 {
     public class GPXLoader
     {
-        /// <summary> 
-        /// Load the Xml document for parsing 
-        /// </summary> 
-        /// <param name="sFile">Fully qualified file name (local)</param> 
-        /// <returns>XDocument</returns> 
-        private XDocument GetGpxDoc(string sFile)
+        private string gpxPath;
+
+        public GPXLoader(string gpx)
         {
-            XDocument gpxDoc = XDocument.Load(sFile);
-            return gpxDoc;
+            this.gpxPath = gpx;
+        }
+
+        XDocument thedoc;
+        XDocument XDoc
+        {
+            get
+            {
+                if (thedoc == null)
+                    thedoc = XDocument.Load(gpxPath);
+                return thedoc;
+            }
         }
 
         /// <summary> 
@@ -39,14 +46,12 @@ namespace Fizzy
         /// the file (for test)</returns> 
         /// <remarks>Normally, this would be used to populate the 
         /// appropriate object model</remarks> 
-        internal List<Cache> LoadGPXWaypoints(string sFile)
+        internal List<Cache> LoadGPXWaypoints()
         {
-            XDocument gpxDoc = XDocument.Load(sFile);
-
             XNamespace gs = XNamespace.Get("http://www.groundspeak.com/cache/1/0/1");  //groundspeak:
             XNamespace gpx = XNamespace.Get("http://www.topografix.com/GPX/1/0");  //no prefix
 
-            var waypoints = (from waypoint in gpxDoc.Descendants(gpx + "wpt")
+            var waypoints = (from waypoint in XDoc.Descendants(gpx + "wpt")
                              select new Cache
                              {
                                  //Latitude = waypoint.Attribute("lat").Value,
@@ -57,7 +62,7 @@ namespace Fizzy
                                  Terrain = waypoint.Element(gs + "cache").Element(gs + "terrain").Value,
                                  Owner = waypoint.Element(gs + "cache").Element(gs + "owner").Value,
                                  PlacedBy = waypoint.Element(gs + "cache").Element(gs + "placed_by").Value,
-                                 PlacedById =  waypoint.Element(gs + "cache").Element(gs + "owner").Attribute("id").Value,
+                                 PlacedById = waypoint.Element(gs + "cache").Element(gs + "owner").Attribute("id").Value,
                                  Country = waypoint.Element(gs + "cache").Element(gs + "country").Value,
                                  State = waypoint.Element(gs + "cache").Element(gs + "state").Value,
                                  Name = waypoint.Element(gs + "cache").Element(gs + "name").Value,
@@ -70,6 +75,18 @@ namespace Fizzy
                              });
 
             return waypoints.ToList();
+        }
+
+        internal GpxMeta GetGpxMeta()
+        {
+            XNamespace gs = XNamespace.Get("http://www.groundspeak.com/cache/1/0/1");  //groundspeak:
+            XNamespace gpx = XNamespace.Get("http://www.topografix.com/GPX/1/0");  //no prefix
+
+            return new GpxMeta()
+            {
+                sDate = XDoc.Element(gpx + "gpx").Element(gpx + "time").Value,
+                User = XDoc.Element(gpx + "gpx").Element(gpx + "wpt").Element(gs + "cache").Element(gs + "logs").Element(gs + "log").Element(gs + "finder").Value
+            };
         }
 
         /// <summary>
@@ -98,7 +115,7 @@ namespace Fizzy
             foreach (var log in logs)
             {
                 sb.AppendFormat("{0} {1}\n", log.Element(gs + "type").Value, log.Element(gs + "date").Value.Substring(0, 10));
-                sb.AppendFormat("{0}\n\n", log.Element(gs + "text").Value);                
+                sb.AppendFormat("{0}\n\n", log.Element(gs + "text").Value);
             }
             return sb.ToString().Trim();
         }
@@ -166,7 +183,19 @@ namespace Fizzy
                 }
             }
             internal DateTime Hidden;
+        }
 
+        public class GpxMeta
+        {
+            internal string User;
+            internal string sDate
+            {
+                set
+                {
+                    DateTime.TryParse(value, out Date);
+                }
+            }
+            internal DateTime Date;
         }
 
     }

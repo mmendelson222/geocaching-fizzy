@@ -40,7 +40,12 @@ namespace Fizzy
         {
             try
             {
-                allgc = (new GPXLoader()).LoadGPXWaypoints(Config.FilePath);
+                var loader = new GPXLoader(Config.FilePath);
+                allgc = loader.LoadGPXWaypoints();
+                
+                GPXLoader.GpxMeta meta = loader.GetGpxMeta();
+                txtGpxMeta.Text = string.Format("User: {0}\r\nDate: {1:MMM d, yyyy}", meta.User, meta.Date);
+
                 filterControl1.Initialize(allgc);
             }
             catch (Exception e)

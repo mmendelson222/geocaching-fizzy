@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.grid = new System.Windows.Forms.DataGridView();
             this.splitGrid = new System.Windows.Forms.SplitContainer();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.btnLoad = new System.Windows.Forms.Button();
             this.dlgGPX = new System.Windows.Forms.OpenFileDialog();
@@ -41,7 +42,7 @@
             this.radJasmer = new System.Windows.Forms.RadioButton();
             this.btnAvengedDnfs = new System.Windows.Forms.Button();
             this.lblCount = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.txtGpxMeta = new System.Windows.Forms.TextBox();
             this.filterControl1 = new Fizzy.FilterControl();
             this.text = new RichTextBoxLinks.RichTextBoxEx();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
@@ -49,8 +50,8 @@
             this.splitGrid.Panel1.SuspendLayout();
             this.splitGrid.Panel2.SuspendLayout();
             this.splitGrid.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // grid
@@ -92,6 +93,16 @@
             this.splitGrid.Size = new System.Drawing.Size(1263, 560);
             this.splitGrid.SplitterDistance = 852;
             this.splitGrid.TabIndex = 1;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.txtGpxMeta);
+            this.panel2.Controls.Add(this.filterControl1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(128, 560);
+            this.panel2.TabIndex = 12;
             // 
             // menuStrip1
             // 
@@ -192,14 +203,16 @@
             this.lblCount.TabIndex = 11;
             this.lblCount.Text = "0";
             // 
-            // panel2
+            // txtGpxMeta
             // 
-            this.panel2.Controls.Add(this.filterControl1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(128, 560);
-            this.panel2.TabIndex = 12;
+            this.txtGpxMeta.BackColor = System.Drawing.SystemColors.Control;
+            this.txtGpxMeta.Enabled = false;
+            this.txtGpxMeta.Location = new System.Drawing.Point(4, 212);
+            this.txtGpxMeta.Multiline = true;
+            this.txtGpxMeta.Name = "txtGpxMeta";
+            this.txtGpxMeta.Size = new System.Drawing.Size(118, 36);
+            this.txtGpxMeta.TabIndex = 2;
+            this.txtGpxMeta.Text = "User:\r\nDate:";
             // 
             // filterControl1
             // 
@@ -242,9 +255,10 @@
             this.splitGrid.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitGrid)).EndInit();
             this.splitGrid.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -267,6 +281,7 @@
         private System.Windows.Forms.Label lblCount;
         private FilterControl filterControl1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TextBox txtGpxMeta;
     }
 }
 
