@@ -152,7 +152,11 @@ namespace Fizzy
         private void btnReset_Click(object sender, EventArgs e)
         {
             EventOff = true;
-            cboYearFilter.SelectedIndex = cboTypeFilter.SelectedIndex = cboCountry.SelectedIndex = 0;
+            cboYearFilter.SelectedIndex = 
+                cboTypeFilter.SelectedIndex = 
+                cboCountry.SelectedIndex = 
+                cboState.SelectedIndex = 
+                0;
             EventOff = false;
             ControlValueChanged(sender, e);
         }
