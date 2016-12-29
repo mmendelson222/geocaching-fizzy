@@ -33,11 +33,14 @@
             this.cboCountry = new System.Windows.Forms.ComboBox();
             this.cboYearFilter = new System.Windows.Forms.ComboBox();
             this.cboTypeFilter = new System.Windows.Forms.ComboBox();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.radTitle = new System.Windows.Forms.RadioButton();
+            this.radLogs = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(0, 149);
+            this.btnReset.Location = new System.Drawing.Point(0, 202);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(121, 23);
             this.btnReset.TabIndex = 20;
@@ -85,10 +88,43 @@
             this.cboTypeFilter.TabIndex = 16;
             this.cboTypeFilter.SelectedIndexChanged += new System.EventHandler(this.ControlValueChanged);
             // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(0, 149);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(120, 20);
+            this.txtSearch.TabIndex = 21;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            // 
+            // radTitle
+            // 
+            this.radTitle.AutoSize = true;
+            this.radTitle.Checked = true;
+            this.radTitle.Location = new System.Drawing.Point(3, 172);
+            this.radTitle.Name = "radTitle";
+            this.radTitle.Size = new System.Drawing.Size(45, 17);
+            this.radTitle.TabIndex = 22;
+            this.radTitle.TabStop = true;
+            this.radTitle.Text = "Title";
+            this.radTitle.UseVisualStyleBackColor = true;
+            // 
+            // radLogs
+            // 
+            this.radLogs.AutoSize = true;
+            this.radLogs.Location = new System.Drawing.Point(54, 172);
+            this.radLogs.Name = "radLogs";
+            this.radLogs.Size = new System.Drawing.Size(48, 17);
+            this.radLogs.TabIndex = 23;
+            this.radLogs.Text = "Logs";
+            this.radLogs.UseVisualStyleBackColor = true;
+            // 
             // FilterControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.radLogs);
+            this.Controls.Add(this.radTitle);
+            this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.cboState);
             this.Controls.Add(this.cboCountry);
@@ -98,6 +134,7 @@
             this.Size = new System.Drawing.Size(121, 236);
             this.Load += new System.EventHandler(this.FilterControl_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -108,5 +145,8 @@
         private System.Windows.Forms.ComboBox cboCountry;
         private System.Windows.Forms.ComboBox cboYearFilter;
         private System.Windows.Forms.ComboBox cboTypeFilter;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.RadioButton radTitle;
+        private System.Windows.Forms.RadioButton radLogs;
     }
 }

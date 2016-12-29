@@ -229,6 +229,8 @@ namespace Fizzy
             if (filterControl1.SelectedCountry != null)
                 filteredGC = filteredGC.Where(c => c.Country == filterControl1.SelectedCountry).ToList();
 
+            if (filterControl1.Search != null)
+                filteredGC = filteredGC.Where(c=>(c.Name.IndexOf(filterControl1.Search, 0, StringComparison.CurrentCultureIgnoreCase) > -1)).ToList();
             return filteredGC;
         }
 
@@ -270,12 +272,5 @@ namespace Fizzy
             textBox.SelectionFont = new Font(textBox.Font, FontStyle.Bold);
         }
 
-        private void btnFilters_Click(object sender, EventArgs e)
-        {
-            //frmFilters.Show();
-        }
-
-
     }
-
 }

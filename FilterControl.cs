@@ -16,17 +16,34 @@ namespace Fizzy
         public delegate void FilterFormChangedDelegeate(object sender, string status);
         public event FilterFormChangedDelegeate FilterChanged;
 
+         Timer t = new Timer();
+
+
         Dictionary<string, string[]> countryStates;
         string[] allStates;
 
         public FilterControl()
         {
             InitializeComponent();
+            t.Interval = 1000;
+            t.Tick += t_Tick;
         }
+
+        void t_Tick(object sender, EventArgs e)
+        {
+            ControlValueChanged(sender, e);
+            t.Stop();
+        }
+
 
         private void FilterControl_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public string Search
+        {
+            get { return txtSearch.Text; }
         }
 
         public int SelectedYear
@@ -99,7 +116,6 @@ namespace Fizzy
                 cboCountry.Items.Add("All Countries");
                 cboCountry.Items.AddRange(countries);
 
-
                 countryStates = new Dictionary<string, string[]>();
                 var lstAllStates = new List<string>();
                 foreach (var c in countries)
@@ -131,12 +147,6 @@ namespace Fizzy
             }
         }
 
-        private void Filters_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            e.Cancel = true;
-            this.Hide();
-        }
-
         private void CountryChanged(object sender, EventArgs e)
         {
             cboState.Items.Clear();
@@ -157,8 +167,16 @@ namespace Fizzy
                 cboCountry.SelectedIndex = 
                 cboState.SelectedIndex = 
                 0;
+            txtSearch.Text = string.Empty;
             EventOff = false;
             ControlValueChanged(sender, e);
+        }
+
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            if (t.Enabled) t.Stop();  //reset timing until search
+            t.Start();
         }
     }
 }

@@ -33,6 +33,8 @@
             this.splitGrid = new System.Windows.Forms.SplitContainer();
             this.panel2 = new System.Windows.Forms.Panel();
             this.txtGpxMeta = new System.Windows.Forms.TextBox();
+            this.filterControl1 = new Fizzy.FilterControl();
+            this.text = new RichTextBoxLinks.RichTextBoxEx();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.btnLoad = new System.Windows.Forms.Button();
             this.dlgGPX = new System.Windows.Forms.OpenFileDialog();
@@ -43,8 +45,6 @@
             this.radJasmer = new System.Windows.Forms.RadioButton();
             this.btnAvengedDnfs = new System.Windows.Forms.Button();
             this.lblCount = new System.Windows.Forms.Label();
-            this.filterControl1 = new Fizzy.FilterControl();
-            this.text = new RichTextBoxLinks.RichTextBoxEx();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitGrid)).BeginInit();
             this.splitGrid.Panel1.SuspendLayout();
@@ -109,12 +109,33 @@
             // 
             this.txtGpxMeta.BackColor = System.Drawing.SystemColors.Control;
             this.txtGpxMeta.Enabled = false;
-            this.txtGpxMeta.Location = new System.Drawing.Point(4, 212);
+            this.txtGpxMeta.Location = new System.Drawing.Point(4, 261);
             this.txtGpxMeta.Multiline = true;
             this.txtGpxMeta.Name = "txtGpxMeta";
             this.txtGpxMeta.Size = new System.Drawing.Size(118, 36);
             this.txtGpxMeta.TabIndex = 2;
             this.txtGpxMeta.Text = "User:\r\nDate:";
+            // 
+            // filterControl1
+            // 
+            this.filterControl1.EventOff = false;
+            this.filterControl1.Location = new System.Drawing.Point(2, 23);
+            this.filterControl1.Name = "filterControl1";
+            this.filterControl1.Size = new System.Drawing.Size(124, 232);
+            this.filterControl1.TabIndex = 0;
+            this.filterControl1.FilterChanged += new Fizzy.FilterControl.FilterFormChangedDelegeate(this.filterFormChanged);
+            // 
+            // text
+            // 
+            this.text.DetectUrls = true;
+            this.text.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.text.Location = new System.Drawing.Point(0, 0);
+            this.text.Name = "text";
+            this.text.ReadOnly = true;
+            this.text.Size = new System.Drawing.Size(407, 560);
+            this.text.TabIndex = 0;
+            this.text.Text = "";
+            this.text.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.text_LinkClicked);
             // 
             // menuStrip1
             // 
@@ -214,27 +235,6 @@
             this.lblCount.Size = new System.Drawing.Size(13, 13);
             this.lblCount.TabIndex = 11;
             this.lblCount.Text = "0";
-            // 
-            // filterControl1
-            // 
-            this.filterControl1.EventOff = false;
-            this.filterControl1.Location = new System.Drawing.Point(2, 23);
-            this.filterControl1.Name = "filterControl1";
-            this.filterControl1.Size = new System.Drawing.Size(124, 183);
-            this.filterControl1.TabIndex = 0;
-            this.filterControl1.FilterChanged += new Fizzy.FilterControl.FilterFormChangedDelegeate(this.filterFormChanged);
-            // 
-            // text
-            // 
-            this.text.DetectUrls = true;
-            this.text.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.text.Location = new System.Drawing.Point(0, 0);
-            this.text.Name = "text";
-            this.text.ReadOnly = true;
-            this.text.Size = new System.Drawing.Size(407, 560);
-            this.text.TabIndex = 0;
-            this.text.Text = "";
-            this.text.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.text_LinkClicked);
             // 
             // Form1
             // 
