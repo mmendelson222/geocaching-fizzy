@@ -230,7 +230,20 @@ namespace Fizzy
                 filteredGC = filteredGC.Where(c => c.Country == filterControl1.SelectedCountry).ToList();
 
             if (filterControl1.Search != null)
-                filteredGC = filteredGC.Where(c=>(c.Name.IndexOf(filterControl1.Search, 0, StringComparison.CurrentCultureIgnoreCase) > -1)).ToList();
+            {
+                switch (filterControl1.SearchMode)
+                {
+                    case FilterControl.eSearchMode.title:
+                        filteredGC = filteredGC.Where(c => (c.Name.IndexOf(filterControl1.Search, 0, StringComparison.CurrentCultureIgnoreCase) > -1)).ToList();
+                        break;
+                    case FilterControl.eSearchMode.foundLog:
+                        filteredGC = filteredGC.Where(c => (c.Log.IndexOf(filterControl1.Search, 0, StringComparison.CurrentCultureIgnoreCase) > -1)).ToList();
+                        break;
+                    default:
+                        break;
+                }
+            }
+                
             return filteredGC;
         }
 

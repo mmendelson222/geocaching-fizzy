@@ -12,38 +12,42 @@ namespace Fizzy
 {
     public partial class FilterControl : UserControl
     {
-
         public delegate void FilterFormChangedDelegeate(object sender, string status);
         public event FilterFormChangedDelegeate FilterChanged;
 
-         Timer t = new Timer();
-
+        public enum eSearchMode { none, title, foundLog };
+        Timer timerSearchTextKey = new Timer();
 
         Dictionary<string, string[]> countryStates;
         string[] allStates;
+        bool eventOff;
 
         public FilterControl()
         {
             InitializeComponent();
-            t.Interval = 1000;
-            t.Tick += t_Tick;
+            timerSearchTextKey.Interval = 600;
+            timerSearchTextKey.Tick += keydownTimer;
         }
 
-        void t_Tick(object sender, EventArgs e)
+        #region public properties
+        public string Search
         {
-            ControlValueChanged(sender, e);
-            t.Stop();
+            get { return txtSearch.Text; }
         }
 
+        public eSearchMode SearchMode
+        {
+            get
+            {
+                if (radLogs.Checked) return eSearchMode.foundLog;
+                if (radTitle.Checked) return eSearchMode.title;
+                return eSearchMode.none;
+            }
+        }
 
         private void FilterControl_Load(object sender, EventArgs e)
         {
 
-        }
-
-        public string Search
-        {
-            get { return txtSearch.Text; }
         }
 
         public int SelectedYear
@@ -85,8 +89,7 @@ namespace Fizzy
                 return (string)cboCountry.SelectedItem;
             }
         }
-
-        public bool EventOff { get; set; }
+        #endregion
 
         internal void Initialize(List<GPXLoader.Cache> allgc)
         {
@@ -134,17 +137,19 @@ namespace Fizzy
             }
         }
 
+        #region event handlers
         private void ControlValueChanged(object sender, EventArgs e)
         {
-            if (FilterChanged != null && !EventOff)
-            {
-                List<string> messages = new List<string>();
-                if (SelectedCacheType != null) messages.Add(SelectedCacheType);
-                if (SelectedYear > 0) messages.Add(SelectedYear.ToString());
-                if (SelectedState != null) messages.Add(SelectedState);
-                if (SelectedCountry != null) messages.Add(SelectedCountry);
-                FilterChanged(sender, string.Join(", ", messages));
-            }
+            if (FilterChanged == null) return;
+            if (eventOff) return;
+            if (sender is RadioButton && txtSearch.Text.Length == 0) return;
+
+            List<string> messages = new List<string>();
+            if (SelectedCacheType != null) messages.Add(SelectedCacheType);
+            if (SelectedYear > 0) messages.Add(SelectedYear.ToString());
+            if (SelectedState != null) messages.Add(SelectedState);
+            if (SelectedCountry != null) messages.Add(SelectedCountry);
+            FilterChanged(sender, string.Join(", ", messages));
         }
 
         private void CountryChanged(object sender, EventArgs e)
@@ -161,22 +166,28 @@ namespace Fizzy
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            EventOff = true;
-            cboYearFilter.SelectedIndex = 
-                cboTypeFilter.SelectedIndex = 
-                cboCountry.SelectedIndex = 
-                cboState.SelectedIndex = 
+            eventOff = true;
+            cboYearFilter.SelectedIndex =
+                cboTypeFilter.SelectedIndex =
+                cboCountry.SelectedIndex =
+                cboState.SelectedIndex =
                 0;
             txtSearch.Text = string.Empty;
-            EventOff = false;
+            eventOff = false;
             ControlValueChanged(sender, e);
         }
 
-
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            if (t.Enabled) t.Stop();  //reset timing until search
-            t.Start();
+            if (timerSearchTextKey.Enabled) timerSearchTextKey.Stop();  //reset timing until search
+            timerSearchTextKey.Start();
         }
+
+        void keydownTimer(object sender, EventArgs e)
+        {
+            ControlValueChanged(sender, e);
+            timerSearchTextKey.Stop();
+        }
+        #endregion
     }
 }

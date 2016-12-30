@@ -118,7 +118,6 @@
             // 
             // filterControl1
             // 
-            this.filterControl1.EventOff = false;
             this.filterControl1.Location = new System.Drawing.Point(2, 23);
             this.filterControl1.Name = "filterControl1";
             this.filterControl1.Size = new System.Drawing.Size(124, 232);

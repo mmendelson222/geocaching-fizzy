@@ -107,6 +107,7 @@
             this.radTitle.TabStop = true;
             this.radTitle.Text = "Title";
             this.radTitle.UseVisualStyleBackColor = true;
+            this.radTitle.CheckedChanged += new System.EventHandler(this.ControlValueChanged);
             // 
             // radLogs
             // 
@@ -117,6 +118,7 @@
             this.radLogs.TabIndex = 23;
             this.radLogs.Text = "Logs";
             this.radLogs.UseVisualStyleBackColor = true;
+            this.radLogs.CheckedChanged += new System.EventHandler(this.ControlValueChanged);
             // 
             // FilterControl
             // 
