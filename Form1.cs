@@ -190,6 +190,7 @@ namespace Fizzy
             if (!((RadioButton)sender).Checked) return;
 
             gridPurpose = GridPurposeFactory.Instance(((RadioButton)sender).Name);
+            splitGrid.Panel1Collapsed = !gridPurpose.UseGrid;
 
             refreshGridEvent(sender, e);
         }
@@ -202,15 +203,25 @@ namespace Fizzy
 
         private void refreshGridEvent(object sender, EventArgs e)
         {
-            if (gridPurpose != null)
+            if (gridPurpose == null) return;
+
+            var filteredGC = gridPurpose.Filter(allgc);
+            filteredGC = ApplyFilters(filteredGC);
+
+            if (gridPurpose.UseGrid)
             {
                 grid.Rows.Clear();
-                List<GPXLoader.Cache> filteredGC = ApplyFilters(allgc);
                 lblCount.Text = filteredGC.Count.ToString();
                 gridPurpose.Initialize(filteredGC, grid);
                 grid.ClearSelection();
                 text.Clear();
                 grid_SizeChanged(null, null);
+            }
+            else
+            {
+                //simply populate the text box with everything.
+                text.Clear();
+                CreateList(filteredGC, gridPurpose.CacheFormatter, text);
             }
         }
 
@@ -243,15 +254,8 @@ namespace Fizzy
                         break;
                 }
             }
-                
-            return filteredGC;
-        }
 
-        private void btnAvengedDnfs_Click(object sender, EventArgs e)
-        {
-            var avenged = allgc.Where(g => g.sDNFDate != null);
-            var formatter = new AvengedFormatter();
-            CreateList(avenged, formatter.CacheFormatter, text);
+            return filteredGC;
         }
 
         internal static void CreateList(IEnumerable<GPXLoader.Cache> caches, ACacheFormatter.CacheFmtDelegate cacheFormatter, RichTextBoxLinks.RichTextBoxEx textBox)

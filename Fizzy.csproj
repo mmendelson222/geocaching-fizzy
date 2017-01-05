@@ -79,10 +79,11 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="GridFunctions\AGridPurpose.cs" />
-    <Compile Include="GridFunctions\AvengedFormatter.cs" />
+    <Compile Include="GridFunctions\AvengedPurpose.cs" />
     <Compile Include="GridFunctions\CalendarGridPurpose.cs" />
     <Compile Include="GridFunctions\DTGridPurpose.cs" />
     <Compile Include="GridFunctions\GridPurposeFactory.cs" />
+    <Compile Include="GridFunctions\ListAllPurpose.cs" />
     <Compile Include="GridFunctions\OwnerGridPurpose.cs" />
     <Compile Include="GridFunctions\JasmerGridPurpose.cs" />
     <Compile Include="Parser.cs" />
