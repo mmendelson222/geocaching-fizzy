@@ -32,8 +32,6 @@ namespace Fizzy
 
             LoadGpxFile();
             radDT.Checked = true;
-
-            filterControl1.FilterChanged += filterFormChanged;
         }
 
         private void LoadGpxFile()
@@ -179,7 +177,6 @@ namespace Fizzy
             {
                 Config.FilePath = dlgGPX.FileName;
                 LoadGpxFile();
-                radGridType_CheckedChanged(null, null);
             }
         }
 

@@ -93,6 +93,7 @@ namespace Fizzy
 
         internal void Initialize(List<GPXLoader.Cache> allgc)
         {
+            eventOff = true;
             {
                 var years = allgc.ConvertAll(w => w.Found.Year).Distinct().ToArray();
                 Array.Sort(years);
@@ -135,6 +136,9 @@ namespace Fizzy
 
                 cboCountry.SelectedIndex = 0;  //triggers CountryChanged
             }
+            eventOff = false;
+
+            ControlValueChanged(null, null);
         }
 
         #region event handlers
