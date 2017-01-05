@@ -258,8 +258,22 @@ namespace Fizzy
             return filteredGC;
         }
 
-        internal static void CreateList(IEnumerable<GPXLoader.Cache> caches, ACacheFormatter.CacheFmtDelegate cacheFormatter, RichTextBoxLinks.RichTextBoxEx textBox)
+        bool suppressDialog = false;
+        internal void CreateList(IEnumerable<GPXLoader.Cache> caches, ACacheFormatter.CacheFmtDelegate cacheFormatter, RichTextBoxLinks.RichTextBoxEx textBox)
         {
+            if (caches.Count() > 1000 && !suppressDialog)
+            {
+                var result = MessageBox.Show(this, string.Format("Showing {0} caches might take a while.  Are you sure?\n\nCancel to suppress this message for now.", caches.Count()), "Annoying Dialog", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                switch (result)
+                {
+                    case DialogResult.No: return;
+                    case DialogResult.Cancel: suppressDialog = true; break;
+                }
+            }
+
+            if (caches.Count() > 400)
+                this.Cursor = Cursors.WaitCursor;
+
             textBox.Text = string.Empty; //clear formatting
 
             //internal links will be in the form directive:GC0000
@@ -287,6 +301,7 @@ namespace Fizzy
             //embolden the first line
             textBox.Select(0, textBox.Text.IndexOf('\n'));
             textBox.SelectionFont = new Font(textBox.Font, FontStyle.Bold);
+            this.Cursor = Cursors.Default;
         }
 
     }
