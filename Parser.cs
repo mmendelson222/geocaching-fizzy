@@ -5,6 +5,7 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Text;
 using System.IO;
+using System.Diagnostics;
 
 namespace Fizzy
 {
@@ -48,8 +49,8 @@ namespace Fizzy
         /// appropriate object model</remarks> 
         internal List<Cache> LoadGPXWaypoints()
         {
-            XNamespace gs = XNamespace.Get("http://www.groundspeak.com/cache/1/0/1");  //groundspeak:
-            XNamespace gpx = XNamespace.Get("http://www.topografix.com/GPX/1/0");  //no prefix
+            XNamespace gs = GetGroundspeakNamespace(XDoc.Root);
+            XNamespace gpx = XDoc.Root.GetDefaultNamespace();  //no prefix
 
             var waypoints = (from waypoint in XDoc.Descendants(gpx + "wpt")
                              select new Cache
@@ -79,14 +80,28 @@ namespace Fizzy
 
         internal GpxMeta GetGpxMeta()
         {
-            XNamespace gs = XNamespace.Get("http://www.groundspeak.com/cache/1/0/1");  //groundspeak:
-            XNamespace gpx = XNamespace.Get("http://www.topografix.com/GPX/1/0");  //no prefix
+            XNamespace gs = GetGroundspeakNamespace(XDoc.Root);
+            XNamespace gpx = XDoc.Root.GetDefaultNamespace();  //no prefix
 
             return new GpxMeta()
             {
                 sDate = XDoc.Element(gpx + "gpx").Element(gpx + "time").Value,
                 User = XDoc.Element(gpx + "gpx").Element(gpx + "wpt").Element(gs + "cache").Element(gs + "logs").Element(gs + "log").Element(gs + "finder").Value
             };
+        }
+
+        /// <summary>
+        /// Tried a number of ways to do this, based on xml format.  This way seems to work for multiple slightly-different namespaces.   Not a great solution.
+        /// </summary>
+        private XNamespace GetGroundspeakNamespace(XElement root)
+        {
+            string schemas = root.Attribute(root.GetNamespaceOfPrefix("xsi") + "schemaLocation").Value;
+            foreach (var s in schemas.Split(new char[] { ' ' }))
+            {
+                if (s.Contains("http://www.groundspeak.com/cache"))
+                    return s;
+            }
+            throw new Exception("Couldn't find groundspeak schema name.  Contact the developer.");
         }
 
         /// <summary>
