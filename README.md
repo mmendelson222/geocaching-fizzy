@@ -1,15 +1,28 @@
 # geocaching-fizzy
 ## What is it?
 
-This Windows program grids based on your finds.  The difference is that each grid square is clickable, so you get all caches represented by that D/T rating, with coord.info links etc.
+This Windows program allows you to "deep dive" into your finds, allowing you to filter them in new ways, and quickly view your logs.  
+For example, the calendar grid looks like the one from Geocaching.com, but you can click on any grid square to see the caches represented by that D/T rating or calendar day, with coord.info links etc.
+Filtering features mean that you can show a grid of ONLY the caches in one state, or of one cache type. 
+
+Group/display caches as: 
+
  * Difficulty/Terrain grid.  Click on a square for a list of all caches found with that DT rating.  
- * Finds by day Calendar.  Click on day for a list of your finds on that date, through the years.
- * Jasmer grid, which gives you all finds organized by the month the geocache was placed. 
- * Geocaches sorted by Owner
- * ANY of the above can be filtered by either year found, or geocache type.  A count of currently shown caches is displayed.
- * Avenged DNF's (not filtered), a simple list of all finds for which you previously posted a "Didn't find" log entry.  (no grid)
+ * Finds by calendar day.  Click on day for a list of your finds on that date, through the years.
+ * Jasmer grid, finds organized by the month the geocache was placed. 
+ * Grouped by cache owner
+ * Avenged caches (previously DNF'ed, then found)
+
+Filter caches by: 
+
+ * Year found
+ * Type of cache
+ * Country or State
+ * Search text in title or log (for example, all caches whose log contains "DNF", or whose title contains "Dog")
+
+A count of currently shown caches is displayed, as well as the user and generation date. 
  
-![screen shot](https://raw.githubusercontent.com/mmendelson222/geocaching-fizzy/master/images/fizzy.png)
+![screen shot](https://raw.githubusercontent.com/mmendelson222/geocaching-fizzy/master/images/screenshot.png)
 
 ## Installation instructions 
 
@@ -20,8 +33,7 @@ This Windows program grids based on your finds.  The difference is that each gri
 
 NOTES: 
 * If you've marked a cache as found twice, only the first time will be counted.   This behavior seems to differ from the calendar on geocaching.com.
-* Unlike the calendar on geocaching.com, this calendar does NOT include lab caches (since they're not included in your "my finds" query).  The D/T grid should be identical to the one on geocaching.com. 
-
+* Unlike the calendar on geocaching.com, this calendar does NOT include lab caches (since they're not included in your "my finds" query).  The D/T grid should be identical to the one on geocaching.com.
 
 ## Developers 
 

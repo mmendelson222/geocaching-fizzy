@@ -41,11 +41,11 @@
             this.radDT = new System.Windows.Forms.RadioButton();
             this.radCalendar = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.radAvenged = new System.Windows.Forms.RadioButton();
             this.radListAll = new System.Windows.Forms.RadioButton();
             this.radOwner = new System.Windows.Forms.RadioButton();
             this.radJasmer = new System.Windows.Forms.RadioButton();
             this.lblCount = new System.Windows.Forms.Label();
-            this.radAvenged = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitGrid)).BeginInit();
             this.splitGrid.Panel1.SuspendLayout();
@@ -195,6 +195,17 @@
             this.panel1.Size = new System.Drawing.Size(397, 24);
             this.panel1.TabIndex = 6;
             // 
+            // radAvenged
+            // 
+            this.radAvenged.AutoSize = true;
+            this.radAvenged.Location = new System.Drawing.Point(266, 4);
+            this.radAvenged.Name = "radAvenged";
+            this.radAvenged.Size = new System.Drawing.Size(68, 17);
+            this.radAvenged.TabIndex = 9;
+            this.radAvenged.Text = "Avenged";
+            this.radAvenged.UseVisualStyleBackColor = true;
+            this.radAvenged.CheckedChanged += new System.EventHandler(this.radGridType_CheckedChanged);
+            // 
             // radListAll
             // 
             this.radListAll.AutoSize = true;
@@ -238,17 +249,6 @@
             this.lblCount.TabIndex = 11;
             this.lblCount.Text = "0";
             // 
-            // radAvenged
-            // 
-            this.radAvenged.AutoSize = true;
-            this.radAvenged.Location = new System.Drawing.Point(266, 4);
-            this.radAvenged.Name = "radAvenged";
-            this.radAvenged.Size = new System.Drawing.Size(68, 17);
-            this.radAvenged.TabIndex = 9;
-            this.radAvenged.Text = "Avenged";
-            this.radAvenged.UseVisualStyleBackColor = true;
-            this.radAvenged.CheckedChanged += new System.EventHandler(this.radGridType_CheckedChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -263,7 +263,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "  ";
+            this.Text = "  My Finds Explorer";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             this.splitGrid.Panel1.ResumeLayout(false);
