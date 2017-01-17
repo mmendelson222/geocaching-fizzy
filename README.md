@@ -1,9 +1,9 @@
 # geocaching-fizzy
 ## What is it?
 
-This Windows program allows you to "deep dive" into your finds, allowing you to filter them in new ways, and quickly view your logs.  
+This Windows program allows you to "deep dive" into your finds, allowing you to filter them in new ways, and quickly view your logs.
 For example, the calendar grid looks like the one from Geocaching.com, but you can click on any grid square to see the caches represented by that D/T rating or calendar day, with coord.info links etc.
-Filtering features mean that you can show a grid of ONLY the caches in one state, or of one cache type. 
+Filtering features mean that you can show a grid of ONLY the caches in one state, or of one cache type.
 
 Group/display caches as: 
 
