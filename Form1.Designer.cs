@@ -124,9 +124,9 @@
             this.txtGpxMeta.Location = new System.Drawing.Point(4, 261);
             this.txtGpxMeta.Multiline = true;
             this.txtGpxMeta.Name = "txtGpxMeta";
-            this.txtGpxMeta.Size = new System.Drawing.Size(118, 36);
+            this.txtGpxMeta.Size = new System.Drawing.Size(118, 48);
             this.txtGpxMeta.TabIndex = 2;
-            this.txtGpxMeta.Text = "User:\r\nDate:";
+            this.txtGpxMeta.Text = "User:\r\nDate:\r\nFinds:\r\nTot days:";
             // 
             // filterControl1
             // 

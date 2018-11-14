@@ -41,8 +41,11 @@ namespace Fizzy
                 var loader = new GPXLoader(Config.FilePath);
                 allgc = loader.LoadGPXWaypoints();
 
+                //count the total number of days the geocacher found/attended. 
+                var daycount = allgc.GroupBy(g => string.Format("{0}{1}{2}", g.Found.Year, g.Found.Month, g.Found.Day)).Count();
+
                 GPXLoader.GpxMeta meta = loader.GetGpxMeta();
-                txtGpxMeta.Text = string.Format("User: {0}\r\nDate: {1:MMM d, yyyy}", meta.User, meta.Date);
+                txtGpxMeta.Text = string.Format("User: {0}\r\nDate: {1:MMM d, yyyy}\r\nDays: {2}", meta.User, meta.Date, daycount);
 
                 filterControl1.Initialize(allgc);
             }
