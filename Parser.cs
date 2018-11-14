@@ -166,6 +166,18 @@ namespace Fizzy
             internal string Log;
             internal string Country;
 
+            /// <summary>
+            /// Parse the date without regard to time zone.
+            /// </summary>
+            bool TryParseGeneric(string sdt, out DateTime dt)
+            {
+                DateTimeOffset dto;
+                bool success = DateTimeOffset.TryParse(sfound, null, System.Globalization.DateTimeStyles.None, out dto);
+                dt = dto.DateTime.AddHours(-6);
+                return success;
+            }
+
+
             private string sfound;
             internal string sFoundDate
             {
@@ -173,7 +185,7 @@ namespace Fizzy
                 set
                 {
                     sfound = value;
-                    DateTime.TryParse(sfound, out Found);
+                    TryParseGeneric(sfound, out Found);
                 }
             }
             internal DateTime Found;
@@ -185,7 +197,7 @@ namespace Fizzy
                 set
                 {
                     sDnf = value;
-                    DateTime.TryParse(sDnf, out DNF);
+                    TryParseGeneric(sDnf, out DNF);
                 }
             }
             internal DateTime DNF;

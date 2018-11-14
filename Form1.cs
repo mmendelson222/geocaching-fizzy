@@ -277,7 +277,7 @@ namespace Fizzy
             Regex hyper = new Regex("(\\w+):(GC\\w+)");
 
             bool addTitle = true;
-            foreach (var c in caches.OrderByDescending(a => a.sFoundDate))
+            foreach (var c in caches.OrderByDescending(a => a.Found))
             {
                 string s = cacheFormatter(addTitle, caches, c).ToString();
 
