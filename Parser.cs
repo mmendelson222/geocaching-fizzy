@@ -129,7 +129,9 @@ namespace Fizzy
             StringBuilder sb = new StringBuilder();
             foreach (var log in logs)
             {
-                sb.AppendFormat("{0} {1}\n", log.Element(gs + "type").Value, log.Element(gs + "date").Value.Substring(0, 10));
+                DateTime adjusted;
+                Cache.TryParseGeneric(log.Element(gs + "date").Value, out adjusted);
+                sb.AppendFormat("{0} {1:MM-dd-yy}\n", log.Element(gs + "type").Value, adjusted);
                 sb.AppendFormat("{0}\n\n", log.Element(gs + "text").Value);
             }
             return sb.ToString().Trim();
@@ -169,14 +171,16 @@ namespace Fizzy
             /// <summary>
             /// Parse the date without regard to time zone.
             /// </summary>
-            bool TryParseGeneric(string sdt, out DateTime dt)
+            public static bool TryParseGeneric(string sdt, out DateTime dt)
             {
                 DateTimeOffset dto;
-                bool success = DateTimeOffset.TryParse(sfound, null, System.Globalization.DateTimeStyles.None, out dto);
-                dt = dto.DateTime.AddHours(-6);
+                bool success = DateTimeOffset.TryParse(sdt, null, System.Globalization.DateTimeStyles.None, out dto);
+                if (success)
+                    dt = dto.DateTime.AddHours(-6);
+                else
+                    dt = DateTime.MinValue;
                 return success;
             }
-
 
             private string sfound;
             internal string sFoundDate
@@ -185,7 +189,8 @@ namespace Fizzy
                 set
                 {
                     sfound = value;
-                    TryParseGeneric(sfound, out Found);
+                    if (sfound != null)
+                        TryParseGeneric(sfound, out Found);
                 }
             }
             internal DateTime Found;
@@ -197,7 +202,8 @@ namespace Fizzy
                 set
                 {
                     sDnf = value;
-                    TryParseGeneric(sDnf, out DNF);
+                    if (sDnf != null)
+                        TryParseGeneric(sDnf, out DNF);
                 }
             }
             internal DateTime DNF;

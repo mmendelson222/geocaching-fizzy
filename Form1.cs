@@ -56,6 +56,7 @@ namespace Fizzy
                     MessageBox.Show("File is missing: " + Config.FilePath, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 else
                     MessageBox.Show(e.Message);
+                //MessageBox.Show(e.Message + "\n" + e.StackTrace);
                 allgc = null;
             }
         }
@@ -280,7 +281,7 @@ namespace Fizzy
             Regex hyper = new Regex("(\\w+):(GC\\w+)");
 
             bool addTitle = true;
-            foreach (var c in caches.OrderByDescending(a => a.Found))
+            foreach (var c in caches.OrderByDescending(a => a.sFoundDate))
             {
                 string s = cacheFormatter(addTitle, caches, c).ToString();
 
