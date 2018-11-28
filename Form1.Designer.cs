@@ -157,8 +157,8 @@
             // dlgGPX
             // 
             this.dlgGPX.DefaultExt = "gpx";
-            this.dlgGPX.Filter = "GPX files|*.gpx|All files (*.*)|*.*";
-            this.dlgGPX.Title = "Please select your My Finds gpx";
+            this.dlgGPX.Filter = "GPX or zip files|*.gpx;*.zip|GPX files|*.gpx|ZIP files|*.zip|All files (*.*)|*.*";
+            this.dlgGPX.Title = "Please select your My Finds (gpx or zip)";
             // 
             // radDT
             // 

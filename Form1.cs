@@ -179,7 +179,20 @@ namespace Fizzy
         {
             if (dlgGPX.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                Config.FilePath = dlgGPX.FileName;
+                if (dlgGPX.FileName.EndsWith("zip"))
+                {
+                    string tmp = Path.GetTempPath() + "fizzy\\";
+                    Directory.Delete(tmp, true);
+                    System.IO.Compression.ZipFile.ExtractToDirectory(dlgGPX.FileName, tmp);
+                    //expect contents to contain a gpx file with same name as the zip
+                    string gpxPath = tmp + Path.GetFileNameWithoutExtension(dlgGPX.FileName) + ".gpx";
+                    Config.FilePath = gpxPath;
+                }
+                else
+                {
+                    //it's a gpx
+                    Config.FilePath = dlgGPX.FileName;
+                }
                 LoadGpxFile();
             }
         }
