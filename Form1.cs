@@ -182,7 +182,8 @@ namespace Fizzy
                 if (dlgGPX.FileName.EndsWith("zip"))
                 {
                     string tmp = Path.GetTempPath() + "fizzy\\";
-                    Directory.Delete(tmp, true);
+                    if (Directory.Exists(tmp))
+                        Directory.Delete(tmp, true);
                     System.IO.Compression.ZipFile.ExtractToDirectory(dlgGPX.FileName, tmp);
                     //expect contents to contain a gpx file with same name as the zip
                     string gpxPath = tmp + Path.GetFileNameWithoutExtension(dlgGPX.FileName) + ".gpx";
