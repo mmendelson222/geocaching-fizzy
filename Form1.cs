@@ -255,6 +255,12 @@ namespace Fizzy
             if (filterControl1.SelectedCountry != null)
                 filteredGC = filteredGC.Where(c => c.Country == filterControl1.SelectedCountry).ToList();
 
+            if (filterControl1.ArchivedStatus != null)
+            {
+                bool status = (filterControl1.ArchivedStatus == "Archived");
+                filteredGC = filteredGC.Where(c => c.Archived == status).ToList();
+            }
+
             if (filterControl1.Search != null)
             {
                 switch (filterControl1.SearchMode)

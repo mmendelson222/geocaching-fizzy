@@ -89,6 +89,16 @@ namespace Fizzy
                 return (string)cboCountry.SelectedItem;
             }
         }
+
+        public string ArchivedStatus
+        {
+            get
+            {
+                if (cboArchived.SelectedIndex == 0)
+                    return null;
+                return (string)cboArchived.SelectedItem;
+            }
+        }
         #endregion
 
         internal void Initialize(List<GPXLoader.Cache> allgc)
@@ -112,6 +122,9 @@ namespace Fizzy
                 cboTypeFilter.Items.AddRange(types);
                 cboTypeFilter.SelectedIndex = 0;
             }
+
+            //defined in control properties
+            cboArchived.SelectedIndex = 0;
 
             {
                 var countries = allgc.ConvertAll(w => w.Country).Distinct().ToArray();
@@ -153,6 +166,7 @@ namespace Fizzy
             if (SelectedYear > 0) messages.Add(SelectedYear.ToString());
             if (SelectedState != null) messages.Add(SelectedState);
             if (SelectedCountry != null) messages.Add(SelectedCountry);
+            if (ArchivedStatus != null) messages.Add(ArchivedStatus);
             FilterChanged(sender, string.Join(", ", messages));
         }
 
