@@ -18,6 +18,9 @@ namespace Fizzy
         public enum eSearchMode { none, title, foundLog };
         Timer timerSearchTextKey = new Timer();
 
+        public const string EVENTS = "ONLY Events";
+        public const string NOT_EVENTS = "NOT Events";
+
         Dictionary<string, string[]> countryStates;
         string[] allStates;
         bool eventOff;
@@ -120,6 +123,8 @@ namespace Fizzy
                 cboTypeFilter.Items.Clear();
                 cboTypeFilter.Items.Add("All Types");
                 cboTypeFilter.Items.AddRange(types);
+                cboTypeFilter.Items.Add(EVENTS);
+                cboTypeFilter.Items.Add(NOT_EVENTS);
                 cboTypeFilter.SelectedIndex = 0;
             }
 

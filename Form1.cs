@@ -247,7 +247,13 @@ namespace Fizzy
                 filteredGC = filteredGC.Where(c => c.Found.Year == filterControl1.SelectedYear).ToList();
 
             if (filterControl1.SelectedCacheType != null)
-                filteredGC = filteredGC.Where(c => c.GCType == filterControl1.SelectedCacheType).ToList();
+                switch (filterControl1.SelectedCacheType)
+                {
+                    case FilterControl.EVENTS: filteredGC = filteredGC.Where(c => c.GCType.Contains("Event")).ToList(); break;
+                    case FilterControl.NOT_EVENTS: filteredGC = filteredGC.Where(c => !c.GCType.Contains("Event")).ToList(); break;
+                    default: filteredGC = filteredGC.Where(c => c.GCType == filterControl1.SelectedCacheType).ToList(); break;
+                }
+
 
             if (filterControl1.SelectedState != null)
                 filteredGC = filteredGC.Where(c => c.State == filterControl1.SelectedState).ToList();
