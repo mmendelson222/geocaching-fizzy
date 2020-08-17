@@ -78,6 +78,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GridFunctions\ACacheFormatter.cs" />
     <Compile Include="GridFunctions\AGridPurpose.cs" />
     <Compile Include="GridFunctions\AvengedPurpose.cs" />
     <Compile Include="GridFunctions\CalendarGridPurpose.cs" />

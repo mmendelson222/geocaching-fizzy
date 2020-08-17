@@ -16,6 +16,7 @@ namespace Fizzy
         public event FilterFormChangedDelegeate FilterChanged;
 
         public enum eSearchMode { none, title, foundLog, description };
+        public bool simpleListing = false;
         Timer timerSearchTextKey = new Timer();
 
         public const string EVENTS = "ONLY Events";
@@ -173,6 +174,7 @@ namespace Fizzy
             if (SelectedState != null) messages.Add(SelectedState);
             if (SelectedCountry != null) messages.Add(SelectedCountry);
             if (ArchivedStatus != null) messages.Add(ArchivedStatus);
+            this.simpleListing = chkSimpleList.Checked;
             FilterChanged(sender, string.Join(", ", messages));
         }
 

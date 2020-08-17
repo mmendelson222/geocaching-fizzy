@@ -12,7 +12,7 @@ namespace Fizzy.GridFunctions
         {
             grid.ColumnCount = 12;
             grid.SelectionMode = DataGridViewSelectionMode.CellSelect;
-       
+
             //row: year, column: month
             int thisYear = DateTime.Now.Year;
             int thisMonth = DateTime.Now.Month;
@@ -64,13 +64,12 @@ namespace Fizzy.GridFunctions
             }
         }
 
-        internal override StringBuilder CacheFormatter(bool firstLine, IEnumerable<GPXLoader.Cache> caches, GPXLoader.Cache c)
+        internal override String CacheFormatter(bool title, IEnumerable<GPXLoader.Cache> caches, GPXLoader.Cache c)
         {
-            StringBuilder sb = new StringBuilder();
-            if (firstLine)
-                sb.AppendFormat("Caches hidden in the month of: {0:M-yyyy}\n", c.Hidden);
-            sb.AppendFormat("{0:MM-dd-yy} {1} {2} {3}:{3} log:{3} {4}\n", c.Found, c.Name, c.State, c.Code, (c.Archived ? "(archived)" : string.Empty));
-            return sb;
+            if (title)
+                return String.Format("Caches hidden in the month of: {0:M-yyyy}\n", c.Hidden);
+            else
+                return String.Format("{0:MM-dd-yy} {1} {2} {3}:{3} log:{3} {4}\n", c.Found, c.Name, c.State, c.Code, (c.Archived ? "(archived)" : string.Empty));
         }
     }
 }

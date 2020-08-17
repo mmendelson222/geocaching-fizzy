@@ -38,11 +38,12 @@
             this.radLogs = new System.Windows.Forms.RadioButton();
             this.cboArchived = new System.Windows.Forms.ComboBox();
             this.radDesc = new System.Windows.Forms.RadioButton();
+            this.chkSimpleList = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(0, 250);
+            this.btnReset.Location = new System.Drawing.Point(0, 262);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(121, 23);
             this.btnReset.TabIndex = 20;
@@ -147,10 +148,22 @@
             this.radDesc.UseVisualStyleBackColor = true;
             this.radDesc.CheckedChanged += new System.EventHandler(this.ControlValueChanged);
             // 
+            // chkSimpleList
+            // 
+            this.chkSimpleList.AutoSize = true;
+            this.chkSimpleList.Location = new System.Drawing.Point(3, 245);
+            this.chkSimpleList.Name = "chkSimpleList";
+            this.chkSimpleList.Size = new System.Drawing.Size(76, 17);
+            this.chkSimpleList.TabIndex = 26;
+            this.chkSimpleList.Text = "Simple List";
+            this.chkSimpleList.UseVisualStyleBackColor = true;
+            this.chkSimpleList.CheckedChanged += new System.EventHandler(this.ControlValueChanged);
+            // 
             // FilterControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.chkSimpleList);
             this.Controls.Add(this.radDesc);
             this.Controls.Add(this.cboArchived);
             this.Controls.Add(this.radLogs);
@@ -162,7 +175,7 @@
             this.Controls.Add(this.cboYearFilter);
             this.Controls.Add(this.cboTypeFilter);
             this.Name = "FilterControl";
-            this.Size = new System.Drawing.Size(126, 276);
+            this.Size = new System.Drawing.Size(126, 290);
             this.Load += new System.EventHandler(this.FilterControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -181,5 +194,6 @@
         private System.Windows.Forms.RadioButton radLogs;
         private System.Windows.Forms.ComboBox cboArchived;
         private System.Windows.Forms.RadioButton radDesc;
+        private System.Windows.Forms.CheckBox chkSimpleList;
     }
 }

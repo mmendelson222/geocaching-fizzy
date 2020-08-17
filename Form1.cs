@@ -19,6 +19,7 @@ namespace Fizzy
     {
         List<Fizzy.GPXLoader.Cache> allgc = null;
         AGridPurpose gridPurpose;
+        int selectedCol, selectedRow;
 
         public Form1()
         {
@@ -102,14 +103,22 @@ namespace Fizzy
 
         private void SelectCell(int col, int row)
         {
-            if (row < 0 || col < 0) return;
+            this.selectedRow = row;
+            this.selectedCol = col;
+            RefreshCurrentSelected();
+        }
 
-            var cell = grid[col, row];
+        private void RefreshCurrentSelected()
+        {
+            if (selectedRow < 0 || selectedCol < 0) return;
+
+            var cell = grid[selectedCol, selectedRow];
             var caches = cell.Tag as List<Fizzy.GPXLoader.Cache>;
             if (caches == null) return;
 
             CreateList(caches, gridPurpose.CacheFormatter, text);
         }
+
 
         private void text_LinkClicked(object sender, LinkClickedEventArgs e)
         {
@@ -205,6 +214,7 @@ namespace Fizzy
             if (!((RadioButton)sender).Checked) return;
 
             gridPurpose = GridPurposeFactory.Instance(((RadioButton)sender).Name);
+            selectedCol = selectedRow = 0;
             splitGrid.Panel1Collapsed = !gridPurpose.UseGrid;
 
             refreshGridEvent(sender, e);
@@ -219,6 +229,16 @@ namespace Fizzy
         private void refreshGridEvent(object sender, EventArgs e)
         {
             if (gridPurpose == null) return;
+
+            //just refresh the current list. 
+            if (sender is CheckBox)
+            {
+                if (((CheckBox)sender).Name == "chkSimpleList")
+                {
+                    RefreshCurrentSelected();
+                    return;
+                }
+            }
 
             var filteredGC = gridPurpose.Filter(allgc);
             filteredGC = ApplyFilters(filteredGC);
@@ -239,6 +259,8 @@ namespace Fizzy
                 CreateList(filteredGC, gridPurpose.CacheFormatter, text);
             }
         }
+
+
 
         private List<GPXLoader.Cache> ApplyFilters(List<GPXLoader.Cache> allgc)
         {
@@ -309,10 +331,21 @@ namespace Fizzy
             //internal links will be in the form directive:GC0000
             Regex hyper = new Regex("(\\w+):(GC\\w+)");
 
-            bool addTitle = true;
+            bool first = true;
             foreach (var c in caches.OrderByDescending(a => a.sFoundDate))
             {
-                string s = cacheFormatter(addTitle, caches, c).ToString();
+                string s;
+                if (filterControl1.simpleListing)
+                    s = ACacheFormatter.SimpleCacheFormatter(c);
+                else
+                    s = cacheFormatter(false, caches, c);
+
+                if (first)
+                {
+                    //add the title on the first run through.
+                    s = String.Format("{0}{1}", cacheFormatter(true, caches, c), s);
+                    first = false;
+                }
 
                 int idx = 0;
                 var matches = hyper.Matches(s);
@@ -324,8 +357,6 @@ namespace Fizzy
                     idx = match.Index + match.Length;
                 }
                 textBox.SelectedText = s.Substring(idx, s.Length - idx);
-
-                addTitle = false;
             }
 
             //embolden the first line

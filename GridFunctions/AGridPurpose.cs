@@ -23,12 +23,4 @@ namespace Fizzy.GridFunctions
         /// </summary>
         internal virtual bool UseGrid { get { return true; } }
     }
-
-    internal abstract class ACacheFormatter
-    {
-        //delegate allows us to pass a pointer to thi
-        internal delegate StringBuilder CacheFmtDelegate(bool firstLine, IEnumerable<GPXLoader.Cache> caches, GPXLoader.Cache c);
-
-        abstract internal StringBuilder CacheFormatter(bool firstLine, IEnumerable<GPXLoader.Cache> caches, GPXLoader.Cache c);
-    }
 }

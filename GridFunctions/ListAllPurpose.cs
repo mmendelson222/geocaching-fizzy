@@ -13,13 +13,12 @@ namespace Fizzy.GridFunctions
             //do nothing.
         }
 
-        internal override StringBuilder CacheFormatter(bool firstLine, IEnumerable<GPXLoader.Cache> caches, GPXLoader.Cache c)
+        internal override String CacheFormatter(bool title, IEnumerable<GPXLoader.Cache> caches, GPXLoader.Cache c)
         {
-            StringBuilder sb = new StringBuilder();
-            if (firstLine)
-                sb.AppendFormat("Caches\n", c.Hidden);
-            sb.AppendFormat("{0:MM-dd-yy} {1} {2} {3}:{3} log:{3} {4}\n", c.Found, c.Name, c.State, c.Code, (c.Archived ? "(archived)" : string.Empty));
-            return sb;
+            if (title)
+                return String.Format("Caches\n", c.Hidden);
+            else
+                return String.Format("{0:MM-dd-yy} {1} {2} {3}:{3} log:{3} {4}\n", c.Found, c.Name, c.State, c.Code, (c.Archived ? "(archived)" : string.Empty));
         }
 
         internal override bool UseGrid { get { return false; } }
