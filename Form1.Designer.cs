@@ -121,7 +121,7 @@
             // 
             this.txtGpxMeta.BackColor = System.Drawing.SystemColors.Control;
             this.txtGpxMeta.Enabled = false;
-            this.txtGpxMeta.Location = new System.Drawing.Point(4, 261);
+            this.txtGpxMeta.Location = new System.Drawing.Point(4, 274);
             this.txtGpxMeta.Multiline = true;
             this.txtGpxMeta.Name = "txtGpxMeta";
             this.txtGpxMeta.Size = new System.Drawing.Size(118, 48);
@@ -132,7 +132,7 @@
             // 
             this.filterControl1.Location = new System.Drawing.Point(2, 23);
             this.filterControl1.Name = "filterControl1";
-            this.filterControl1.Size = new System.Drawing.Size(124, 232);
+            this.filterControl1.Size = new System.Drawing.Size(124, 250);
             this.filterControl1.TabIndex = 0;
             this.filterControl1.FilterChanged += new Fizzy.FilterControl.FilterFormChangedDelegeate(this.filterFormChanged);
             // 

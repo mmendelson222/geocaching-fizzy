@@ -73,6 +73,7 @@ namespace Fizzy
                                  sDNFDate = DateFromCacheElement(gs, waypoint, NotFoundFilter(gs)),
                                  GCType = waypoint.Element(gs + "cache").Element(gs + "type").Value,
                                  Log = LogsFromCacheElement(gs, waypoint),
+                                 Description = waypoint.Element(gs + "cache").Element(gs + "long_description").Value,
                              });
 
             return waypoints.ToList();
@@ -167,6 +168,7 @@ namespace Fizzy
             internal string GCType;
             internal string Log;
             internal string Country;
+            internal string Description;
 
             /// <summary>
             /// Parse the date without regard to time zone.

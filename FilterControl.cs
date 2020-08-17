@@ -15,7 +15,7 @@ namespace Fizzy
         public delegate void FilterFormChangedDelegeate(object sender, string status);
         public event FilterFormChangedDelegeate FilterChanged;
 
-        public enum eSearchMode { none, title, foundLog };
+        public enum eSearchMode { none, title, foundLog, description };
         Timer timerSearchTextKey = new Timer();
 
         public const string EVENTS = "ONLY Events";
@@ -44,6 +44,7 @@ namespace Fizzy
             {
                 if (radLogs.Checked) return eSearchMode.foundLog;
                 if (radTitle.Checked) return eSearchMode.title;
+                if (radDesc.Checked) return eSearchMode.description;
                 return eSearchMode.none;
             }
         }

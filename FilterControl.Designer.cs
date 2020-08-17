@@ -37,11 +37,12 @@
             this.radTitle = new System.Windows.Forms.RadioButton();
             this.radLogs = new System.Windows.Forms.RadioButton();
             this.cboArchived = new System.Windows.Forms.ComboBox();
+            this.radDesc = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(0, 238);
+            this.btnReset.Location = new System.Drawing.Point(0, 250);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(121, 23);
             this.btnReset.TabIndex = 20;
@@ -113,11 +114,11 @@
             // radLogs
             // 
             this.radLogs.AutoSize = true;
-            this.radLogs.Location = new System.Drawing.Point(54, 208);
+            this.radLogs.Location = new System.Drawing.Point(46, 208);
             this.radLogs.Name = "radLogs";
-            this.radLogs.Size = new System.Drawing.Size(48, 17);
+            this.radLogs.Size = new System.Drawing.Size(43, 17);
             this.radLogs.TabIndex = 23;
-            this.radLogs.Text = "Logs";
+            this.radLogs.Text = "Log";
             this.radLogs.UseVisualStyleBackColor = true;
             this.radLogs.CheckedChanged += new System.EventHandler(this.ControlValueChanged);
             // 
@@ -135,10 +136,22 @@
             this.cboArchived.TabIndex = 24;
             this.cboArchived.SelectedIndexChanged += new System.EventHandler(this.ControlValueChanged);
             // 
+            // radDesc
+            // 
+            this.radDesc.AutoSize = true;
+            this.radDesc.Location = new System.Drawing.Point(3, 226);
+            this.radDesc.Name = "radDesc";
+            this.radDesc.Size = new System.Drawing.Size(78, 17);
+            this.radDesc.TabIndex = 25;
+            this.radDesc.Text = "Description";
+            this.radDesc.UseVisualStyleBackColor = true;
+            this.radDesc.CheckedChanged += new System.EventHandler(this.ControlValueChanged);
+            // 
             // FilterControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.radDesc);
             this.Controls.Add(this.cboArchived);
             this.Controls.Add(this.radLogs);
             this.Controls.Add(this.radTitle);
@@ -149,7 +162,7 @@
             this.Controls.Add(this.cboYearFilter);
             this.Controls.Add(this.cboTypeFilter);
             this.Name = "FilterControl";
-            this.Size = new System.Drawing.Size(121, 276);
+            this.Size = new System.Drawing.Size(126, 276);
             this.Load += new System.EventHandler(this.FilterControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -167,5 +180,6 @@
         private System.Windows.Forms.RadioButton radTitle;
         private System.Windows.Forms.RadioButton radLogs;
         private System.Windows.Forms.ComboBox cboArchived;
+        private System.Windows.Forms.RadioButton radDesc;
     }
 }

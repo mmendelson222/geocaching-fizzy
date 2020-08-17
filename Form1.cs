@@ -277,6 +277,9 @@ namespace Fizzy
                     case FilterControl.eSearchMode.foundLog:
                         filteredGC = filteredGC.Where(c => (c.Log.IndexOf(filterControl1.Search, 0, StringComparison.CurrentCultureIgnoreCase) > -1)).ToList();
                         break;
+                    case FilterControl.eSearchMode.description:
+                        filteredGC = filteredGC.Where(c => (c.Description.IndexOf(filterControl1.Search, 0, StringComparison.CurrentCultureIgnoreCase) > -1)).ToList();
+                        break;
                     default:
                         break;
                 }
