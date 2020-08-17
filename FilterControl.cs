@@ -211,8 +211,8 @@ namespace Fizzy
 
         void keydownTimer(object sender, EventArgs e)
         {
-            ControlValueChanged(sender, e);
             timerSearchTextKey.Stop();
+            ControlValueChanged(sender, e);
         }
         #endregion
     }
