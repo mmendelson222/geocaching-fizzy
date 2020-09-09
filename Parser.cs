@@ -74,9 +74,20 @@ namespace Fizzy
                                  GCType = waypoint.Element(gs + "cache").Element(gs + "type").Value,
                                  Log = LogsFromCacheElement(gs, waypoint),
                                  Description = waypoint.Element(gs + "cache").Element(gs + "long_description").Value,
+                                 Attributes = processAtts(waypoint.Element(gs + "cache").Element(gs + "attributes"))
                              });
 
             return waypoints.ToList();
+        }
+
+        private int[] processAtts(XElement xElement)
+        {
+            List<int> atts = new List<int>();
+            foreach (XElement e in xElement.Elements())
+            {
+                atts.Add(int.Parse(e.Attribute("id").Value));
+            }
+            return atts.ToArray();
         }
 
         internal GpxMeta GetGpxMeta()
@@ -169,6 +180,7 @@ namespace Fizzy
             internal string Log;
             internal string Country;
             internal string Description;
+            internal int[] Attributes;
 
             /// <summary>
             /// Parse the date without regard to time zone.

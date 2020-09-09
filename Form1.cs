@@ -307,6 +307,12 @@ namespace Fizzy
                 }
             }
 
+            if (filterControl1.Attributes != null)
+            {
+                int filter = filterControl1.Attributes[0];
+                filteredGC = filteredGC.Where(c => c.Attributes.Contains(filter)).ToList();
+            }
+
             return filteredGC;
         }
 

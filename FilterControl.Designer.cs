@@ -39,11 +39,12 @@
             this.cboArchived = new System.Windows.Forms.ComboBox();
             this.radDesc = new System.Windows.Forms.RadioButton();
             this.chkSimpleList = new System.Windows.Forms.CheckBox();
+            this.txtAttributes = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(0, 262);
+            this.btnReset.Location = new System.Drawing.Point(0, 295);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(121, 23);
             this.btnReset.TabIndex = 20;
@@ -93,7 +94,7 @@
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(0, 185);
+            this.txtSearch.Location = new System.Drawing.Point(0, 218);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(120, 20);
             this.txtSearch.TabIndex = 21;
@@ -103,7 +104,7 @@
             // 
             this.radTitle.AutoSize = true;
             this.radTitle.Checked = true;
-            this.radTitle.Location = new System.Drawing.Point(3, 208);
+            this.radTitle.Location = new System.Drawing.Point(3, 241);
             this.radTitle.Name = "radTitle";
             this.radTitle.Size = new System.Drawing.Size(45, 17);
             this.radTitle.TabIndex = 22;
@@ -115,7 +116,7 @@
             // radLogs
             // 
             this.radLogs.AutoSize = true;
-            this.radLogs.Location = new System.Drawing.Point(46, 208);
+            this.radLogs.Location = new System.Drawing.Point(46, 241);
             this.radLogs.Name = "radLogs";
             this.radLogs.Size = new System.Drawing.Size(43, 17);
             this.radLogs.TabIndex = 23;
@@ -140,7 +141,7 @@
             // radDesc
             // 
             this.radDesc.AutoSize = true;
-            this.radDesc.Location = new System.Drawing.Point(3, 226);
+            this.radDesc.Location = new System.Drawing.Point(3, 259);
             this.radDesc.Name = "radDesc";
             this.radDesc.Size = new System.Drawing.Size(78, 17);
             this.radDesc.TabIndex = 25;
@@ -151,7 +152,7 @@
             // chkSimpleList
             // 
             this.chkSimpleList.AutoSize = true;
-            this.chkSimpleList.Location = new System.Drawing.Point(3, 245);
+            this.chkSimpleList.Location = new System.Drawing.Point(3, 278);
             this.chkSimpleList.Name = "chkSimpleList";
             this.chkSimpleList.Size = new System.Drawing.Size(76, 17);
             this.chkSimpleList.TabIndex = 26;
@@ -159,10 +160,18 @@
             this.chkSimpleList.UseVisualStyleBackColor = true;
             this.chkSimpleList.CheckedChanged += new System.EventHandler(this.ControlValueChanged);
             // 
+            // txtAttributes
+            // 
+            this.txtAttributes.Location = new System.Drawing.Point(0, 173);
+            this.txtAttributes.Name = "txtAttributes";
+            this.txtAttributes.Size = new System.Drawing.Size(120, 20);
+            this.txtAttributes.TabIndex = 27;
+            // 
             // FilterControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.txtAttributes);
             this.Controls.Add(this.chkSimpleList);
             this.Controls.Add(this.radDesc);
             this.Controls.Add(this.cboArchived);
@@ -175,7 +184,7 @@
             this.Controls.Add(this.cboYearFilter);
             this.Controls.Add(this.cboTypeFilter);
             this.Name = "FilterControl";
-            this.Size = new System.Drawing.Size(126, 290);
+            this.Size = new System.Drawing.Size(126, 322);
             this.Load += new System.EventHandler(this.FilterControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -195,5 +204,6 @@
         private System.Windows.Forms.ComboBox cboArchived;
         private System.Windows.Forms.RadioButton radDesc;
         private System.Windows.Forms.CheckBox chkSimpleList;
+        private System.Windows.Forms.TextBox txtAttributes;
     }
 }

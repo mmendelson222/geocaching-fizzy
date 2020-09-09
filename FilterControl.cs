@@ -104,6 +104,17 @@ namespace Fizzy
                 return (string)cboArchived.SelectedItem;
             }
         }
+
+        public int[] Attributes
+        {
+            get
+            {
+                string content = txtAttributes.Text.Trim();
+                if (content.Length == 0)
+                    return null;
+                return Array.ConvertAll(content.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries), int.Parse);
+            }
+        }
         #endregion
 
         internal void Initialize(List<GPXLoader.Cache> allgc)
