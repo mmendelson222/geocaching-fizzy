@@ -12,6 +12,8 @@ namespace Fizzy
 {
     public partial class FilterControl : UserControl
     {
+        AttributeFilterDlg dlg = null;
+
         public delegate void FilterFormChangedDelegeate(object sender, string status);
         public event FilterFormChangedDelegeate FilterChanged;
 
@@ -105,14 +107,11 @@ namespace Fizzy
             }
         }
 
-        public int[] Attributes
+        public bool FilterByAttributes
         {
             get
             {
-                string content = txtAttributes.Text.Trim();
-                if (content.Length == 0)
-                    return null;
-                return Array.ConvertAll(content.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries), int.Parse);
+                return chkAttFilter.Checked;
             }
         }
         #endregion
@@ -226,5 +225,45 @@ namespace Fizzy
             ControlValueChanged(sender, e);
         }
         #endregion
+
+        bool attFilterChangedByDialog = false;
+        private void chkAttFilter_CheckedChanged(object sender, EventArgs e)
+        {
+            //suppress additional event that occurs when we set the checkbox below.
+            if (attFilterChangedByDialog)
+            {
+                attFilterChangedByDialog = false;
+                return;
+            }
+
+            if (chkAttFilter.Checked && !AttributeFilterDlg.ItemsAreSelected)
+                ShowAttributeDialog();
+            else
+                ControlValueChanged(null, null);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ShowAttributeDialog();
+        }
+
+        private void ShowAttributeDialog()
+        {
+            dlg = new AttributeFilterDlg();
+            dlg.FilterEnabled = chkAttFilter.Checked;
+            dlg.ShowDialog(this);
+            attFilterChangedByDialog = chkAttFilter.Checked != dlg.FilterEnabled;
+
+            if (!AttributeFilterDlg.ItemsAreSelected)
+                chkAttFilter.Checked = false;
+            else
+                chkAttFilter.Checked = dlg.FilterEnabled;
+
+            ControlValueChanged(null, null);
+
+            //foreach (var att in AttributeFilterDlg.AllAttributes)
+            //    if (att.Selected)
+            //        System.Diagnostics.Debug.WriteLine(att.Description);
+        }
     }
 }

@@ -80,14 +80,19 @@ namespace Fizzy
             return waypoints.ToList();
         }
 
-        private int[] processAtts(XElement xElement)
+        private List<CacheAtt> processAtts(XElement xElement)
         {
-            List<int> atts = new List<int>();
+            List<CacheAtt> atts = new List<CacheAtt>();
             foreach (XElement e in xElement.Elements())
             {
-                atts.Add(int.Parse(e.Attribute("id").Value));
+                atts.Add(
+                    new CacheAtt(
+                        int.Parse(e.Attribute("id").Value),
+                        e.Attribute("inc").Value == "1" ? true : false
+                        )
+                );
             }
-            return atts.ToArray();
+            return atts;
         }
 
         internal GpxMeta GetGpxMeta()
@@ -165,6 +170,16 @@ namespace Fizzy
             return z => z.Element(gs + "type").Value == "Didn't find it";
         }
 
+        public class CacheAtt
+        {
+            internal CacheAtt(int num, bool on)
+            {
+                this.num = num; this.on = on;
+            }
+            public int num;
+            public bool on;
+        }
+
         public class Cache
         {
             internal string Code;
@@ -180,7 +195,7 @@ namespace Fizzy
             internal string Log;
             internal string Country;
             internal string Description;
-            internal int[] Attributes;
+            internal List<CacheAtt> Attributes;
 
             /// <summary>
             /// Parse the date without regard to time zone.

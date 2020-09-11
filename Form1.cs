@@ -307,10 +307,33 @@ namespace Fizzy
                 }
             }
 
-            if (filterControl1.Attributes != null)
+            if (filterControl1.FilterByAttributes)
             {
-                int filter = filterControl1.Attributes[0];
-                filteredGC = filteredGC.Where(c => c.Attributes.Contains(filter)).ToList();
+                var filterOnUs = AttributeFilterDlg.AllAttributes.Where(a => a.Selected);
+
+                List<GPXLoader.Cache> criteriaMet = new List<GPXLoader.Cache>(filteredGC.Count);
+
+                //start with a shallow clone of the list.  
+                List<GPXLoader.Cache> criteriaNotMet = new List<GPXLoader.Cache>(filteredGC.Count);
+                filteredGC.ForEach((item) =>
+                {
+                    criteriaNotMet.Add(item);
+                });
+
+                foreach (var att in filterOnUs)
+                {
+                    //find the items that meet this criteria
+                    //var attsFound = criteriaNotMet.Where(c => c.Attributes.Where(a => a.on == att.On && a.num == att.id).Count() > 0).ToList();
+                    var attsFound = criteriaNotMet.Where(c => c.Attributes.Exists(a => a.on == att.On && a.num == att.id)).ToList();
+
+                    //OR logic:  add these to met criteria.
+                    criteriaMet.AddRange(attsFound);
+
+                    //shrink the pool so we don't get duplicates.
+                    criteriaNotMet = criteriaNotMet.Where(c => c.Attributes.Exists(a => a.on != att.On || a.num != att.id) || c.Attributes.Count == 0).ToList();
+                }
+
+                filteredGC = criteriaMet;
             }
 
             return filteredGC;
