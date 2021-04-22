@@ -46,7 +46,7 @@ namespace Fizzy
             }
             public int id;
             public string Description;
-            //True if "on", False if "off".  If null, either.
+            //True if "on", False if "off". 
             public bool On = true;
             public bool Selected = false;
         }

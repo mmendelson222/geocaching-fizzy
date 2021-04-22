@@ -311,29 +311,40 @@ namespace Fizzy
             {
                 var filterOnUs = AttributeFilterDlg.AllAttributes.Where(a => a.Selected);
 
-                List<GPXLoader.Cache> criteriaMet = new List<GPXLoader.Cache>(filteredGC.Count);
-
-                //start with a shallow clone of the list.  
-                List<GPXLoader.Cache> criteriaNotMet = new List<GPXLoader.Cache>(filteredGC.Count);
-                filteredGC.ForEach((item) =>
+                if (AttributeFilterDlg.Operation == AttributeFilterDlg.operation.Or)
                 {
-                    criteriaNotMet.Add(item);
-                });
+                    List<GPXLoader.Cache> criteriaMet = new List<GPXLoader.Cache>(filteredGC.Count);
 
-                foreach (var att in filterOnUs)
-                {
-                    //find the items that meet this criteria
-                    //var attsFound = criteriaNotMet.Where(c => c.Attributes.Where(a => a.on == att.On && a.num == att.id).Count() > 0).ToList();
-                    var attsFound = criteriaNotMet.Where(c => c.Attributes.Exists(a => a.on == att.On && a.num == att.id)).ToList();
+                    //start with a shallow clone of the list.  
+                    List<GPXLoader.Cache> criteriaNotMet = new List<GPXLoader.Cache>(filteredGC.Count);
+                    filteredGC.ForEach((item) =>
+                    {
+                        criteriaNotMet.Add(item);
+                    });
 
-                    //OR logic:  add these to met criteria.
-                    criteriaMet.AddRange(attsFound);
+                    foreach (var att in filterOnUs)
+                    {
+                        System.Diagnostics.Debug.WriteLine(att.Description + " " + att.id + " " + att.On);
+                        //find the items that meet this criteria
+                        var attsFound = criteriaNotMet.Where(c => c.Attributes.Exists(a => a.on == att.On && a.num == att.id)).ToList();
 
-                    //shrink the pool so we don't get duplicates.
-                    criteriaNotMet = criteriaNotMet.Where(c => c.Attributes.Exists(a => a.on != att.On || a.num != att.id) || c.Attributes.Count == 0).ToList();
+                        //OR logic:  add these to met criteria.
+                        criteriaMet.AddRange(attsFound);
+
+                        //shrink the pool so we don't get duplicates.
+                        criteriaNotMet = criteriaNotMet.Where(c => c.Attributes.Exists(a => a.on != att.On || a.num != att.id) || c.Attributes.Count == 0).ToList();
+                    }
+                    filteredGC = criteriaMet;
                 }
-
-                filteredGC = criteriaMet;
+                else
+                {
+                    foreach (var att in filterOnUs)
+                    {
+                        System.Diagnostics.Debug.WriteLine(att.Description + " " + att.id + " " + att.On);
+                        //find the items that meet this criteria
+                        filteredGC = filteredGC.Where(c => c.Attributes.Exists(a => a.on == att.On && a.num == att.id)).ToList();
+                    }
+                }
             }
 
             return filteredGC;

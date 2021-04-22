@@ -13,7 +13,10 @@ namespace Fizzy
     public partial class AttributeFilterDlg : Form
     {
         public static List<AttributeControl.GCAttribute> AllAttributes = null;
-        
+
+        public enum operation { Or, And };
+        public static operation _operation = operation.Or;
+
         public AttributeFilterDlg()
         {
             InitializeComponent();
@@ -32,6 +35,9 @@ namespace Fizzy
                 ctl.Width = this.panelAttributes.Width - System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
                 this.panelAttributes.Controls.Add(ctl);
             }
+
+            this.radOr.CheckedChanged += new System.EventHandler(this.operation_changed);
+            this.radAnd.CheckedChanged += new System.EventHandler(this.operation_changed);
         }
 
         public bool FilterEnabled
@@ -44,6 +50,22 @@ namespace Fizzy
             {
                 chkFilterEnabled.Checked = value;
             }
+        }
+
+        public static operation Operation
+        {
+            get
+            {
+                return _operation;
+            }
+        }
+
+        private void operation_changed(object sender, EventArgs e)
+        {
+            if (radOr.Checked)
+                _operation = operation.Or;
+            else
+                _operation = operation.And;
         }
 
         public static bool ItemsAreSelected
@@ -129,6 +151,9 @@ namespace Fizzy
             AllAttributes.Add(new AttributeControl.GCAttribute(65, "Front Yard (Private Residence)"));
             AllAttributes.Add(new AttributeControl.GCAttribute(66, "Teamwork Required"));
             AllAttributes.Add(new AttributeControl.GCAttribute(67, "GeoTour"));
+            AllAttributes.Add(new AttributeControl.GCAttribute(70, "Power trail"));
+            AllAttributes.Add(new AttributeControl.GCAttribute(71, "Challenge Cache"));
+            AllAttributes.Add(new AttributeControl.GCAttribute(72, "Solution Checker"));
         }
     }
 }

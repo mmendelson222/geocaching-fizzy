@@ -32,6 +32,8 @@
             this.chkFilterEnabled = new System.Windows.Forms.CheckBox();
             this.panelAttributes = new System.Windows.Forms.Panel();
             this.btnOK = new System.Windows.Forms.Button();
+            this.radOr = new System.Windows.Forms.RadioButton();
+            this.radAnd = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // chkFilterEnabled
@@ -63,11 +65,36 @@
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
+            // radOr
+            // 
+            this.radOr.AutoSize = true;
+            this.radOr.Checked = true;
+            this.radOr.Location = new System.Drawing.Point(256, 12);
+            this.radOr.Name = "radOr";
+            this.radOr.Size = new System.Drawing.Size(36, 17);
+            this.radOr.TabIndex = 6;
+            this.radOr.TabStop = true;
+            this.radOr.Text = "Or";
+            this.radOr.UseVisualStyleBackColor = true;
+            // 
+            // radAnd
+            // 
+            this.radAnd.AutoSize = true;
+            this.radAnd.Location = new System.Drawing.Point(299, 13);
+            this.radAnd.Name = "radAnd";
+            this.radAnd.Size = new System.Drawing.Size(44, 17);
+            this.radAnd.TabIndex = 7;
+            this.radAnd.TabStop = true;
+            this.radAnd.Text = "And";
+            this.radAnd.UseVisualStyleBackColor = true;
+            // 
             // AttributeFilterDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(375, 519);
+            this.Controls.Add(this.radAnd);
+            this.Controls.Add(this.radOr);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.panelAttributes);
             this.Controls.Add(this.chkFilterEnabled);
@@ -86,5 +113,7 @@
         private System.Windows.Forms.CheckBox chkFilterEnabled;
         private System.Windows.Forms.Panel panelAttributes;
         private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.RadioButton radOr;
+        private System.Windows.Forms.RadioButton radAnd;
     }
 }
