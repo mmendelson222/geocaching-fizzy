@@ -8,17 +8,20 @@ namespace Fizzy.GridFunctions
 {
     class ListAllPurpose : AGridPurpose
     {
-        internal override void Initialize(List<GPXLoader.Cache> allgc, System.Windows.Forms.DataGridView grid)
+        internal override string CacheFormatter(GPXLoader.Cache c)
         {
-            //do nothing.
+            return String.Format("{0:MM-dd-yy} {1} {2} {3}:{3} log:{3} {4}\n", c.Found, c.Name, c.State, c.Code, (c.Archived ? "(archived)" : string.Empty));
         }
 
-        internal override String CacheFormatter(bool title, IEnumerable<GPXLoader.Cache> caches, GPXLoader.Cache c)
+        internal override string TitleFormatter(IEnumerable<GPXLoader.Cache> caches)
         {
-            if (title)
-                return String.Format("Caches\n", c.Hidden);
-            else
-                return String.Format("{0:MM-dd-yy} {1} {2} {3}:{3} log:{3} {4}\n", c.Found, c.Name, c.State, c.Code, (c.Archived ? "(archived)" : string.Empty));
+            GPXLoader.Cache c = caches.First();
+            return String.Format("Caches", c.Hidden);
+        }
+
+        internal override string ExportFormatter(IEnumerable<GPXLoader.Cache> caches)
+        {
+            return TitleFormatter(caches);
         }
 
         internal override bool UseGrid { get { return false; } }

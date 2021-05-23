@@ -18,8 +18,10 @@ namespace Fizzy
     public partial class Form1 : Form
     {
         List<Fizzy.GPXLoader.Cache> allgc = null;
+        IEnumerable<Fizzy.GPXLoader.Cache> listedCaches = null;
         AGridPurpose gridPurpose;
         int selectedCol, selectedRow;
+        bool suppressDialog = false;
 
         public Form1()
         {
@@ -115,10 +117,8 @@ namespace Fizzy
             var cell = grid[selectedCol, selectedRow];
             var caches = cell.Tag as List<Fizzy.GPXLoader.Cache>;
             if (caches == null) return;
-
-            CreateList(caches, gridPurpose.CacheFormatter, text);
+            CreateList(caches, text);
         }
-
 
         private void text_LinkClicked(object sender, LinkClickedEventArgs e)
         {
@@ -216,7 +216,7 @@ namespace Fizzy
             gridPurpose = GridPurposeFactory.Instance(((RadioButton)sender).Name);
             selectedCol = selectedRow = 0;
             splitGrid.Panel1Collapsed = !gridPurpose.UseGrid;
-
+            
             refreshGridEvent(sender, e);
         }
 
@@ -229,7 +229,7 @@ namespace Fizzy
         private void refreshGridEvent(object sender, EventArgs e)
         {
             if (gridPurpose == null) return;
-
+            
             //just refresh the current list. 
             if (sender is CheckBox)
             {
@@ -251,16 +251,15 @@ namespace Fizzy
                 grid.ClearSelection();
                 text.Clear();
                 grid_SizeChanged(null, null);
+                btnExport.Enabled = false;
             }
             else
             {
                 //simply populate the text box with everything.
                 text.Clear();
-                CreateList(filteredGC, gridPurpose.CacheFormatter, text);
+                CreateList(filteredGC, text);
             }
         }
-
-
 
         private List<GPXLoader.Cache> ApplyFilters(List<GPXLoader.Cache> allgc)
         {
@@ -350,8 +349,49 @@ namespace Fizzy
             return filteredGC;
         }
 
-        bool suppressDialog = false;
-        internal void CreateList(IEnumerable<GPXLoader.Cache> caches, ACacheFormatter.CacheFmtDelegate cacheFormatter, RichTextBoxLinks.RichTextBoxEx textBox)
+        private string commas(string s)
+        {
+            if (s.Contains(","))
+                return string.Format("\"{0}\"", s);
+            else
+                return s;
+        }
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            dlgSaveExport.FileName = gridPurpose.ExportFormatter(listedCaches);
+            if (dlgSaveExport.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                StringBuilder sb = new StringBuilder(
+                    "found,gc code,hidden,cache name,type,difficulty,terrain,status,owner,placed by,region,country\n");
+                foreach (var c in listedCaches.OrderByDescending(a => a.sFoundDate))
+                {
+                    sb.AppendFormat("{0:MM-dd-yy},{1},{2:MM-dd-yy},{3},{4},{5},{6},{7},{8},{9},{10},{11}\n",
+                        c.Found,
+                        c.Code,
+                        c.Hidden,
+                        commas(c.Name),
+                        c.GCType,
+                        c.Difficulty,
+                        c.Terrain,
+                        c.Archived ? "archived" : "active",
+                        commas(c.Owner),
+                        commas(c.PlacedBy),
+                        commas(c.State),
+                        c.Country);
+                }
+                try
+                {
+                    File.WriteAllText(dlgSaveExport.FileName, sb.ToString());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Export error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
+            }
+        }
+
+        internal void CreateList(IEnumerable<GPXLoader.Cache> caches, RichTextBoxLinks.RichTextBoxEx textBox)
         {
             if (caches.Count() > 1000 && !suppressDialog)
             {
@@ -366,26 +406,21 @@ namespace Fizzy
             if (caches.Count() > 400)
                 this.Cursor = Cursors.WaitCursor;
 
+            btnExport.Enabled = caches.Count() > 0;
+            listedCaches = caches;
             textBox.Text = string.Empty; //clear formatting
+            textBox.SelectedText = gridPurpose.TitleFormatter(caches) + "\n";
 
             //internal links will be in the form directive:GC0000
             Regex hyper = new Regex("(\\w+):(GC\\w+)");
 
-            bool first = true;
             foreach (var c in caches.OrderByDescending(a => a.sFoundDate))
             {
                 string s;
                 if (filterControl1.simpleListing)
                     s = ACacheFormatter.SimpleCacheFormatter(c);
                 else
-                    s = cacheFormatter(false, caches, c);
-
-                if (first)
-                {
-                    //add the title on the first run through.
-                    s = String.Format("{0}{1}", cacheFormatter(true, caches, c), s);
-                    first = false;
-                }
+                    s = gridPurpose.CacheFormatter(c);
 
                 int idx = 0;
                 var matches = hyper.Matches(s);

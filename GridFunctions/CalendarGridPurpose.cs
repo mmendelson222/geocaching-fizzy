@@ -68,12 +68,21 @@ namespace Fizzy.GridFunctions
             }
         }
 
-        internal override String CacheFormatter(bool title, IEnumerable<GPXLoader.Cache> caches, GPXLoader.Cache c)
+        internal override string CacheFormatter(GPXLoader.Cache c)
         {
-            if (title)
-                return String.Format("Caches found on: {0:M-d}\n", c.Found);
-            else
-                return String.Format("{5:yyyy} {0} {1}/{2} {3} {4}:{4} log:{4} {6}\n", c.Name, c.Difficulty, c.Terrain, c.State, c.Code, c.Found, (c.Archived ? "(archived)" : string.Empty));
+            return String.Format("{5:yyyy} {0} {1}/{2} {3} {4}:{4} log:{4} {6}\n", c.Name, c.Difficulty, c.Terrain, c.State, c.Code, c.Found, (c.Archived ? "(archived)" : string.Empty));
+        }
+
+        internal override string TitleFormatter(IEnumerable<GPXLoader.Cache> caches)
+        {
+            GPXLoader.Cache c = caches.First();
+            return String.Format("Caches found on: {0:M-d}", c.Found);
+        }
+
+        internal override string ExportFormatter(IEnumerable<GPXLoader.Cache> caches)
+        {
+            GPXLoader.Cache c = caches.First();
+            return String.Format("Found {0:M-d}", c.Found);
         }
     }
 }

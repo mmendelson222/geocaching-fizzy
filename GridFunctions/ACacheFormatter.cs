@@ -9,12 +9,11 @@ namespace Fizzy.GridFunctions
     //Each grid contains logic to format its cache list.  
     internal abstract class ACacheFormatter
     {
-        //delegate allows us to pass a pointer to the CacheFormatter function.
-        internal delegate String CacheFmtDelegate(bool title, IEnumerable<GPXLoader.Cache> caches, GPXLoader.Cache c);
+        abstract internal String CacheFormatter(GPXLoader.Cache c);
+        abstract internal String TitleFormatter(IEnumerable<GPXLoader.Cache> caches);
+        abstract internal String ExportFormatter(IEnumerable<GPXLoader.Cache> caches);
 
-        abstract internal String CacheFormatter(bool title, IEnumerable<GPXLoader.Cache> caches, GPXLoader.Cache c);
-
-        //this is an alternative, "simple" description.
+        //this is used if "simple listing" is checked.  Not sure if needed.
         internal static String SimpleCacheFormatter(GPXLoader.Cache c)
         {
             return String.Format("{0:MM-dd-yy} {1} {2} {3} {4}\n", c.Found, c.Name, c.State, c.Code, (c.Archived ? "(archived)" : string.Empty));
