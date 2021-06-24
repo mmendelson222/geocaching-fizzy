@@ -20,6 +20,7 @@ namespace Fizzy.GridFunctions
 
         internal override string TitleFormatter(IEnumerable<GPXLoader.Cache> caches)
         {
+            if (caches.Count() == 0) return string.Empty;
             return String.Format("Avenged DNF's (count: {0})", caches.Count());
         }
 

@@ -78,6 +78,7 @@ namespace Fizzy.GridFunctions
 
         internal override string TitleFormatter(IEnumerable<GPXLoader.Cache> caches)
         {
+            if (caches.Count() == 0) return string.Empty;
             GPXLoader.Cache c = caches.First();
             return String.Format("Caches hidden by: {0}", c.Owner);
         }
