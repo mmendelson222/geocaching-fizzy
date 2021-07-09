@@ -36,9 +36,13 @@ NOTES:
 * If you've marked a cache as found twice, only the first time will be counted.   This behavior seems to differ from the calendar on geocaching.com.
 * Unlike the calendar on geocaching.com, this calendar does NOT include lab caches or adventure labs (since they're not included in your "my finds" query).  As a result, your counts will be a bit lower than the one displayed on geocaching.com.  However, the D/T grid will be identical to the one on geocaching.com.
 
+## Found a bug? 
+
+Open an issue here: https://github.com/mmendelson222/geocaching-fizzy/issues
+
 ## Developers 
 
-This program is written in c#.  If you're interested in contributing, I'll respond to pull requests or feel free to contact me directly. 
+This program is written entirely in c#, using Windows Forms.  If you're interested in contributing, I'll respond to pull requests or feel free to contact me directly. 
 
 
 
