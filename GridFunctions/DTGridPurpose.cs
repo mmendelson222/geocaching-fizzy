@@ -16,12 +16,12 @@ namespace Fizzy.GridFunctions
             for (int d = 0; d < 9; d++)
             {
                 var row = new DataGridViewRow();
-                string diff = ((d + 2) * 0.5).ToString();
+                string diff = ((d + 2) * 0.5).ToString("N1");
                 row.HeaderCell.Value = diff;
 
                 for (int t = 0; t < 9; t++)
                 {
-                    string terr = ((t + 2) * 0.5).ToString();
+                    string terr = ((t + 2) * 0.5).ToString("N1");
 
                     //initialization for columns
                     if (d == 0)
