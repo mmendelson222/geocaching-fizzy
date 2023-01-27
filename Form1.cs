@@ -194,9 +194,9 @@ namespace Fizzy
                     if (Directory.Exists(tmp))
                         Directory.Delete(tmp, true);
                     System.IO.Compression.ZipFile.ExtractToDirectory(dlgGPX.FileName, tmp);
-                    //expect contents to contain a gpx file with same name as the zip
-                    string gpxPath = tmp + Path.GetFileNameWithoutExtension(dlgGPX.FileName) + ".gpx";
-                    Config.FilePath = gpxPath;
+                    //expect zip file to contain exactly one gpx file. 
+                    string[] files = System.IO.Directory.GetFiles(tmp);
+                    Config.FilePath = files[0];
                 }
                 else
                 {
